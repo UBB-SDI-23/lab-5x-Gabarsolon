@@ -18,13 +18,13 @@ function SmartphoneGetAll() {
         <Table>
           <TableHead sx={{ backgroundColor: '#F5F5F5' }}>
             <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>#</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Brand</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Model</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Price</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Storage Capacity</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Launch Date</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Display Type</TableCell>
+              <TableCell>#</TableCell>
+              <TableCell>Brand</TableCell>
+              <TableCell>Model</TableCell>
+              <TableCell>Price</TableCell>
+              <TableCell>Storage Capacity</TableCell>
+              <TableCell>Launch Date</TableCell>
+              <TableCell>Display Type</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
