@@ -29,7 +29,7 @@ public class Smartphone{
     @ManyToOne(fetch = FetchType.EAGER)
     //@JsonProperty("displayId")
     @JoinColumn(name = "display_id")
-    @NotNull(message = "You must specify a display id")
+//    @NotNull(message = "You must specify a display id")
     private Display display;
     protected Smartphone(){
 

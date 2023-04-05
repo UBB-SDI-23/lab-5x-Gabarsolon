@@ -7,6 +7,7 @@ import React from 'react'
 import { AppMenu } from './components/AppMenu'
 import { AppHome } from './components/AppHome'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { SmartphoneAdd } from './components/smartphone/SmartphoneAdd'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<AppHome/>} />
         <Route path="/smartphones" element={<SmartphoneGetAll/>}/>
+        <Route path="/smartphones/add" element={<SmartphoneAdd/>}/>
       </Routes>
     </Router>
   </React.Fragment>
