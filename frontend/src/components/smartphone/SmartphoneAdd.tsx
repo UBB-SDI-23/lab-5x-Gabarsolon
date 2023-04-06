@@ -46,8 +46,6 @@ export const SmartphoneAdd = () => {
 
 	const [selectedVal, setSelectedVal] = useState(0);
 
-
-
 	return (
 		<Container>
 			<Card>
@@ -99,6 +97,9 @@ export const SmartphoneAdd = () => {
 							sx={{ mb: 2 }}
 							onChange={(event) => setSmartphone({ ...smartphone, launchDate: event.target.value})}
 						/>
+						<InputLabel sx={{float: "left"}}>
+								Main display:
+						</InputLabel>
 						<Select
 							id="display"
 							variant="outlined"
@@ -115,10 +116,13 @@ export const SmartphoneAdd = () => {
 						>	
 							<MenuItem value="0" disabled>Pick a display</MenuItem>
 							{displays.map((display: Display) => {
-								return(<MenuItem value={display.id}>{display.type}</MenuItem>)
+								return(
+								    <MenuItem value={display.id}>
+										{display.type} {display.size} inch {display.resolutionHeight}x{display.resolutionWidth}
+									</MenuItem>)
 							})}
 						</Select>
-						<Button type="submit">Add smartphone</Button>
+						<Button type="submit" sx={{float: "left"}}>Add smartphone</Button>
 					</form>
 				</CardContent>
 				<CardActions></CardActions>
