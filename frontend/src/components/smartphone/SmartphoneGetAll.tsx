@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit"
 import {Link} from "react-router-dom";
 import {BACKEND_API_URL} from "../../constants";
 
@@ -83,14 +84,19 @@ function SmartphoneGetAll() {
                                     <TableCell>
                                         <IconButton
                                             component={Link}
-                                            sx={{
-                                            mr: 3
-                                        }}
+                                            sx={{mr: 3}}
                                             to={`/smartphones/delete/${smartphone.id}`}>
-                                            <DeleteForeverIcon
-                                                sx={{
-                                                color: "red"
-                                            }}/>
+                                            <Tooltip title="Delete" arrow>
+                                                <DeleteForeverIcon sx={{color: "red"}}/>
+                                            </Tooltip>
+                                        </IconButton>
+                                        <IconButton
+                                            component={Link}
+                                            sx={{mr: 3}}
+                                            to={`/smartphones/update/${smartphone.id}`}>
+                                            <Tooltip title="Update" arrow>
+                                                <EditIcon/>
+                                            </Tooltip>
                                         </IconButton>
                                     </TableCell>
                                 </TableRow>
