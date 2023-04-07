@@ -14,44 +14,67 @@ import {
     Container,
     Button,
     Typography,
+    List,
+    ListItem,
+    TextField,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit"
 import {Link} from "react-router-dom";
 import {BACKEND_API_URL} from "../../constants";
+import { inherits } from "util";
 
 function SmartphoneGetAll() {
     const [smartphones,
         setSmartphones] = useState([]);
     const [loading,
         setLoading] = useState(false);
+    const [price, setPrice] = useState(0);
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${BACKEND_API_URL}/smartphone`)
+        fetch(`${BACKEND_API_URL}/smartphone/getWithPriceHigherThan/${price}`)
             .then(res => res.json())
             .then(data => {
                 setSmartphones(data);
                 setLoading(false);
             })
-    }, []);;
+    }, [price]);
 
     return (
         <Container sx={{
             marginTop: "40px"
         }}>
             <Typography variant="h3" color="black" align="left">All Smartphones</Typography>
-            {!loading && (
-                <Button
-                    variant="outlined"
-                    component={Link}
-                    sx={{
-                    float: "left"
-                }}
-                    to={`/smartphones/add`}>
-                    + Add new smartphone
-                </Button>
+            {(
+                <List sx={{display: "flex", flexDirection: "row", padding: "1px"}}>
+                    <ListItem sx={{width: "auto"}}>
+                        <Button
+                            variant="outlined"
+                            component={Link}
+                            to={`/smartphones/add`}>
+                            + Add new smartphone
+                        </Button>
+                    </ListItem>
+                    <ListItem sx={{width: "auto"}}>
+                        <TextField
+                            id="filter"
+                            label="Having price higher than:"
+							fullWidth
+							sx={{ mb: 2 }}
+							onChange={(event) => {
+                                const inputtedPrice = Number(event.target.value);
+                                if(!isNaN(inputtedPrice)){
+                                    setPrice(Number(inputtedPrice));
+                                    console.log(price);
+                                    console.log(event.target.value);
+                                }
+                            }}
+                        >
+                        </TextField>
+                    </ListItem>
+                </List>
             )}
             {!loading && (
                 <TableContainer component={Paper}>

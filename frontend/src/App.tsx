@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { SmartphoneAdd } from './components/smartphone/SmartphoneAdd'
 import { SmartphoneDelete } from './components/smartphone/SmartphoneDelete'
 import { SmartphoneUpdate } from './components/smartphone/SmartphoneUpdate'
+import { SmartphoneFilterByPrice } from './components/smartphone/SmarthponeFilterByPrice'
 
 function App() {
   const [count, setCount] = useState(0)

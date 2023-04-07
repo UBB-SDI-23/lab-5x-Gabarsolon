@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { BACKEND_API_URL } from "../../constants";
 import { Smartphone } from "../../model/Smartphone";
 import { Display } from "../../model/Display";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 
 export const SmartphoneForm = (
     { apiCallMethod, smartphone, setSmartphone, btnMsg} : 
@@ -25,6 +26,9 @@ export const SmartphoneForm = (
 		<Container>
 			<Card>
 				<CardContent>
+					<IconButton component={Link} to={`/smartphones`} sx={{float: "left"}}>
+						<ArrowBackIcon/>
+					</IconButton>
 					<IconButton component={Link} sx={{ mr: 3 }} to={`/smartphones`}>
 					</IconButton>{" "}
 					<form onSubmit={apiCallMethod}>
