@@ -31,7 +31,7 @@ function SmartphoneGetAll() {
         setSmartphones] = useState([]);
     const [loading,
         setLoading] = useState(false);
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState(-1);
     
     const handlePriceTextFIeld = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const inputtedPrice = Number(event.target.value);
@@ -46,6 +46,7 @@ function SmartphoneGetAll() {
     useEffect(() => {
         setLoading(true);
         if(price == -1){
+            console.log(BACKEND_API_URL);
             fetch(`${BACKEND_API_URL}/smartphone`)
             .then(res => res.json())
             .then(data => {
