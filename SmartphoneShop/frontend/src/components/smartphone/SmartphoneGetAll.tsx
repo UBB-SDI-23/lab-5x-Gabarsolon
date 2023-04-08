@@ -46,7 +46,7 @@ function SmartphoneGetAll() {
     useEffect(() => {
         setLoading(true);
         if(price == -1){
-            fetch(`/api/smartphone`)
+            fetch(`${BACKEND_API_URL}/smartphone`)
             .then(res => res.json())
             .then(data => {
                 setSmartphones(data);
@@ -54,7 +54,7 @@ function SmartphoneGetAll() {
             })
         }
         else{
-            fetch(`/api/smartphone/getWithPriceHigherThan/${price}`)
+            fetch(`${BACKEND_API_URL}/smartphone/getWithPriceHigherThan/${price}`)
             .then(res => res.json())
             .then(data => {
                 setSmartphones(data);
