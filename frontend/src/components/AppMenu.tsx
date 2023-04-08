@@ -8,7 +8,7 @@ export const AppMenu = () => {
 	const path = location.pathname;
 
 	return (
-		<Box sx={{ flexGrow: 1 }}>
+		<Box sx={{ marginBottom: "2%" }}>
 			<AppBar position="absolute" >
 				<Toolbar>
 					<IconButton

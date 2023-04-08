@@ -8,6 +8,7 @@ export const AppHome = () => {
 
 			<Container maxWidth="xl">
 				<Typography variant="h1" component="h1" gutterBottom>
+					Welcome to my smartphone shop. Use the navigation menu from above to find your dream device! :O
 				</Typography>
 			</Container>
 		</React.Fragment>

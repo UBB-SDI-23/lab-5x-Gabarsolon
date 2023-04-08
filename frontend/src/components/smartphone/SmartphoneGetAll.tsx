@@ -17,6 +17,7 @@ import {
     List,
     ListItem,
     TextField,
+    CircularProgress,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/Delete";
@@ -31,15 +32,35 @@ function SmartphoneGetAll() {
     const [loading,
         setLoading] = useState(false);
     const [price, setPrice] = useState(0);
+    
+    const handlePriceTextFIeld = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const inputtedPrice = Number(event.target.value);
+        if(!isNaN(inputtedPrice)){
+            setPrice(Number(inputtedPrice));
+        }
+        else{
+            setPrice(-1);
+        }
+    }
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${BACKEND_API_URL}/smartphone/getWithPriceHigherThan/${price}`)
+        if(price == -1){
+            fetch(`${BACKEND_API_URL}/smartphone`)
             .then(res => res.json())
             .then(data => {
                 setSmartphones(data);
                 setLoading(false);
             })
+        }
+        else{
+            fetch(`${BACKEND_API_URL}/smartphone/getWithPriceHigherThan/${price}`)
+            .then(res => res.json())
+            .then(data => {
+                setSmartphones(data);
+                setLoading(false);
+            })
+        }
     }, [price]);
 
     return (
@@ -64,12 +85,7 @@ function SmartphoneGetAll() {
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => {
-                                const inputtedPrice = Number(event.target.value);
-                                if(!isNaN(inputtedPrice)){
-                                    setPrice(Number(inputtedPrice));
-                                    console.log(price);
-                                    console.log(event.target.value);
-                                }
+                                handlePriceTextFIeld(event);
                             }}
                         >
                         </TextField>
