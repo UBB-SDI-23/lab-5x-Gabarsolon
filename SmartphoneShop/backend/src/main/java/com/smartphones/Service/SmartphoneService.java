@@ -39,4 +39,5 @@ public class SmartphoneService extends EntityService<Smartphone>{
         return repository.findAll().stream().filter(smartphone -> smartphone.getPrice().compareTo(price) == 1)
                 .collect(Collectors.toList());
     }
+
 }

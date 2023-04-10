@@ -1,11 +1,11 @@
 import { Display } from "./Display";
 
-export interface Smartphone{
+export class Smartphone{
     id?: number;
-    brand: string;
-    model: string;
-    price: number;
-    storageCapacity: number;
-    launchDate: string;
-    display: Display; 
+    brand: string = "";
+    model: string = "";
+    price: number = 0;
+    storageCapacity: number = 0;
+    launchDate: string = "";
+    display: Display = new Display(); 
 }
