@@ -9,7 +9,9 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Transaction {
-    private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "customer_id")
     @NotNull(message = "You must specify a customer id")
@@ -19,7 +21,7 @@ public class Transaction {
     @NotNull(message = "You must specify a smartphone id")
     private Smartphone smartphone;
     @Positive(message = "The quantity must be positive")
-    private Integer  quantity;
+    private Integer quantity;
     @PastOrPresent(message = "Invalid date")
     private LocalDateTime dateTime;
 

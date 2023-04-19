@@ -10,7 +10,9 @@ import java.util.Set;
 
 @Entity
 public class Display {
-    private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @NotEmpty(message = "The first name cannot be empty")
     private String type;
     @Positive(message = "The size must be positive")

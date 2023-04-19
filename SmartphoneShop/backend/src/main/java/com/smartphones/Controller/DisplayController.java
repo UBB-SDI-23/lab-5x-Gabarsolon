@@ -30,7 +30,7 @@ public class DisplayController {
     }
     @GetMapping
     public ResponseEntity<Object> getAllDisplays(){
-        return new ResponseEntity<>(displayService.getAll(), HttpStatus.OK);
+        return new ResponseEntity<>(displayService.getAllDisplayIds(), HttpStatus.OK);
     }
 
     @PostMapping

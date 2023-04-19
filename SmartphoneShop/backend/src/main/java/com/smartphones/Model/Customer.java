@@ -11,17 +11,21 @@ import java.util.Set;
 
 @Entity
 public class Customer {
-    private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotEmpty(message = "The first name cannot be empty")
     private String firstName;
     @NotEmpty(message = "The last name cannot be empty")
     private String lastName;
     @Digits(integer = 10, fraction =0, message = "The phone number must be at least 10 digits long")
+    @Column(unique = true)
     private String phoneNumber;
     @PastOrPresent(message = "The date of birth is invalid")
     private LocalDate dateOfBirth;
     @Email(message = "The email is invalid")
+    @Column(unique = true)
     private String email;
     protected Customer() {
 

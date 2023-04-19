@@ -46,33 +46,11 @@ function SmartphoneGetAll() {
           setSortOrder("asc");
         }
         if(sortOrder == "asc"){
-            switch(column){
-                case "brand":
-                    smartphones.sort((a, b) => a.brand.localeCompare(b.brand));
-                case "model":
-                    smartphones.sort((a, b) => a.model.localeCompare(b.model));
-                case "price":
-                    smartphones.sort((a, b) => a.price < b.price ? -1 : a.price > b.price ? 1 : 0);
-                case "storageCapacity":
-                    smartphones.sort((a, b) => a.storageCapacity < b.storageCapacity ? -1 : a.storageCapacity > b.storageCapacity ? 1 : 0);
-                case "launchDate":
-                    smartphones.sort((a, b) => a.launchDate.localeCompare(b.launchDate));
+                smartphones.sort((a, b) => a.launchDate.localeCompare(b.launchDate));
             }       
-        }
         else{
-            switch(column){
-                case "brand":
-                    smartphones.sort((b, a) => a.brand.localeCompare(b.brand));
-                case "model":
-                    smartphones.sort((b, a) => a.model.localeCompare(b.model));
-                case "price":
-                    smartphones.sort((b, a) => a.price < b.price ? -1 : a.price > b.price ? 1 : 0);
-                case "storageCapacity":
-                    smartphones.sort((b, a) => a.storageCapacity < b.storageCapacity ? -1 : a.storageCapacity > b.storageCapacity ? 1 : 0);
-                case "launchDate":
-                    smartphones.sort((b, a) => a.launchDate.localeCompare(b.launchDate));
+                smartphones.sort((b, a) => a.launchDate.localeCompare(b.launchDate));
             }  
-        }
             
       };
       

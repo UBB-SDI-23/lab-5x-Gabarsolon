@@ -14,7 +14,9 @@ import java.util.Set;
 //        generator = ObjectIdGenerators.PropertyGenerator.class,
 //        property = "id")
 public class Smartphone{
-    private @Id @GeneratedValue(strategy= GenerationType.AUTO) Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @NotEmpty(message = "The brand cannot be empty")
     private String brand;
     @NotEmpty(message = "The model cannot be empty")
