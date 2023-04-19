@@ -22,6 +22,10 @@ public class TransactionController{
         this.transactionService = transactionService;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getTransactionById(@PathVariable Long id) {
+        return new ResponseEntity<>(transactionService.getById(id), HttpStatus.OK);
+    }
     @GetMapping
     public ResponseEntity<Object> getAllTransactions(){
         return new ResponseEntity<>(transactionService.getAll(), HttpStatus.OK);

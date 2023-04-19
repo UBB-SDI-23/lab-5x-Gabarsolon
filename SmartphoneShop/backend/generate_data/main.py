@@ -1,15 +1,18 @@
-import random
+from datetime import datetime
 
-import faker.providers.company
+import faker.providers.date_time
+import random
 from faker import Faker
 
 fake = Faker()
 
+
 def generate_displays():
-    type = ["Super AMOLED","LTPO Super Retina XDR OLED","Monochrome graphic","Fluid AMOLED","Super Retina OLED"
-        "AMOLED","LTPO AMOLED","IPS LCD","TFT" ]
-    protection = [ "Asahi Dragontrail Glass", "Ceramic Shield Glass", "PVC", "Corning Gorilla Glass Victus",
-        "Corning Gorilla Glass 4", "Scratch-ressistance glass"]
+    type = ["Super AMOLED", "LTPO Super Retina XDR OLED", "Monochrome graphic", "Fluid AMOLED", "Super Retina OLED"
+                                                                                                "AMOLED", "LTPO AMOLED",
+            "IPS LCD", "TFT"]
+    protection = ["Asahi Dragontrail Glass", "Ceramic Shield Glass", "PVC", "Corning Gorilla Glass Victus",
+                  "Corning Gorilla Glass 4", "Scratch-ressistance glass"]
 
     with open('displays.sql', 'w') as f:
         for i in range(1000):
@@ -29,6 +32,8 @@ def generate_displays():
                          str(random.randint(800, 3840)) + "," +
                          "'" + random.choice(protection) + "'" + ");\n"
                          )
+
+
 def generate_smartphones():
     brands_dict = {
         'Apple': ['iPhone 13 Pro', 'iPhone 12', 'iPhone SE'],
@@ -55,7 +60,67 @@ def generate_smartphones():
 
     with open('smartphones.sql', 'w') as f:
         for i in range(1000):
-            f.writelines("INSERT INTO smartphone()")
+            f.writelines(
+                "INSERT INTO smartphone(brand, model, price, storage_capacity, launch_date, display_id) VALUES")
+            for j in range(999):
+                brand = random.choice(list(brands_dict.keys()))
+                f.writelines("(" +
+                             "'" + brand + "'" + "," +
+                             "'" + random.choice(brands_dict[brand]) + "'" + "," +
+                             str(random.randint(0, 7000)) + "," +
+                             str(2 ** random.randint(1, 9)) + "," +
+                             "'" + str(fake.date_between(end_date=datetime(2023, 4, 19))) + "'" + "," +
+                             str(random.randint(1, 1000000)) + "),"
+                             )
+            brand = random.choice(list(brands_dict.keys()))
+            f.writelines("(" +
+                         "'" + brand + "'" + "," +
+                         "'" + random.choice(brands_dict[brand]) + "'" + "," +
+                         str(random.randint(0, 7000)) + "," +
+                         str(2 ** random.randint(1, 9)) + "," +
+                         "'" + str(fake.date_between(end_date=datetime(2023, 4, 19))) + "'" + "," +
+                         str(random.randint(1, 1000000)) + ");\n"
+                         )
 
 
-generate_displays()
+def generate_customers():
+    with open('customers.sql', 'w') as f:
+        for i in range(1000):
+            f.writelines("INSERT INTO customer(first_name, last_name, phone_number, date_of_birth, email) VALUES ")
+            current_batch_values = ""
+            for j in range(999):
+                current_batch_values += "(" + "'" + fake.first_name() + "'" + "," + "'" + fake.last_name() + "'" + "," + "'" + fake.unique.phone_number() + "'" + "," + "'" + str(
+                    fake.date_between(end_date=datetime(2023, 4, 18))) + "'" + "," + "'" + str(
+                    fake.unique.email()) + "'" + "),"
+            f.writelines(current_batch_values)
+            f.writelines("(" +
+                         "'" + fake.first_name() + "'" + "," +
+                         "'" + fake.last_name() + "'" + "," +
+                         "'" + fake.unique.phone_number() + "'" + "," +
+                         "'" + str(fake.date_between(end_date=datetime(2023, 4, 18))) + "'" + "," +
+                         "'" + str(fake.unique.email()) + "'" + ");\n"
+                         )
+
+def generate_transactions():
+    with open('transactions.sql', 'w') as f:
+        for i in range(10000):
+            f.writelines("INSERT INTO transaction(customer_id, smartphone_id, date_time, quantity) VALUES ")
+            for j in range(999):
+                f.writelines("(" +
+                             str(random.randint(1, 1000000)) + "," +
+                             str(random.randint(1, 1000000)) + "," +
+                             "'" + str(fake.date_time_between(end_date=datetime(2023, 4, 18, 0, 0, 0))) + "'" + "," +
+                             str(random.randint(1, 3)) + "),"
+                             )
+            f.writelines("(" +
+                         str(random.randint(1, 1000000)) + "," +
+                         str(random.randint(1, 1000000)) + "," +
+                         "'" + str(fake.date_time_between(end_date=datetime(2023, 4, 18, 0, 0, 0))) + "'" + "," +
+                         str(random.randint(1, 3)) + ");\n"
+                         )
+
+
+# generate_displays()
+# generate_smartphones()
+# generate_customers()
+generate_transactions()
