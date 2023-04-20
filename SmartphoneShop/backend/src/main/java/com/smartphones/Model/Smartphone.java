@@ -28,22 +28,25 @@ public class Smartphone{
     @PastOrPresent(message = "Invalid date")
     private LocalDate launchDate;
 
+
     @ManyToOne(fetch = FetchType.EAGER)
     //@JsonProperty("displayId")
     @JoinColumn(name = "display_id")
 //    @NotNull(message = "You must specify a display id")
     private Display display;
+
+    private String description;
     protected Smartphone(){
 
     };
-    public Smartphone(String brand, String model, BigDecimal price, Integer storageCapacity, LocalDate launchDate,  Display display){
+    public Smartphone(String brand, String model, BigDecimal price, Integer storageCapacity, LocalDate launchDate,  Display display, String description){
         this.brand = brand;
         this.model = model;
         this.price = price;
         this.storageCapacity = storageCapacity;
         this.launchDate = launchDate;
         this.display = display;
-
+        this.description = description;
     }
 
     public Long getId() {
@@ -74,6 +77,10 @@ public class Smartphone{
         return display;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -102,6 +109,10 @@ public class Smartphone{
         this.display = display;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Smartphone{" +
@@ -112,6 +123,7 @@ public class Smartphone{
                 ", storageCapacity=" + storageCapacity +
                 ", launchDate=" + launchDate +
                 ", display=" + display +
+                ", description='" + description + '\'' +
                 '}';
     }
 }
