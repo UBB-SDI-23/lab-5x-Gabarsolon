@@ -119,8 +119,24 @@ def generate_transactions():
                          str(random.randint(1, 3)) + ");\n"
                          )
 
+def generate_description_for_smartphones():
+    smartphone_words = ['phone', 'mobile', 'device', 'screen', 'battery', 'camera', 'processor', 'memory', 'storage',
+                        'charger', 'wireless', 'Bluetooth', 'WiFi', 'app', 'operating', 'system']
+
+    query = []
+    for i in range(1000000):
+        query.append("UPDATE smartphone SET description=" + "'" +
+                     str(fake.sentence(nb_words=16, ext_word_list=smartphone_words)) + "'" +
+                     " WHERE id={}".format(i) +  ";")
+
+    with open('descriptions.sql', 'w') as f:
+        f.write(''.join(query))
+
+
 
 # generate_displays()
 # generate_smartphones()
 # generate_customers()
-generate_transactions()
+# generate_transactions()
+# generate_description_for_smartphones()
+print(fake.text(max_nb_chars=255))
