@@ -31,5 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
-*.sql
-*.sql
+SmartphoneShop/backend/generate_data/customers.sql
+SmartphoneShop/backend/generate_data/descriptions.sql
+SmartphoneShop/backend/generate_data/displays.sql
+SmartphoneShop/backend/generate_data/smartphones.sql
+SmartphoneShop/backend/generate_data/transactions.sql
