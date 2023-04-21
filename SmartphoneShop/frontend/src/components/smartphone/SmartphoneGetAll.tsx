@@ -29,30 +29,37 @@ import {BACKEND_API_URL} from "../../constants";
 import {inherits} from "util";
 
 function SmartphoneGetAll() {
-    const [smartphones, setSmartphones] = useState<Smartphone[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [price, setPrice] = useState(-1);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [sortColumn, setSortColumn] = useState("brand");
-    const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-    const [count, setCount] = useState(1);
+    const [smartphones,
+        setSmartphones] = useState < Smartphone[] > ([]);
+    const [loading,
+        setLoading] = useState(false);
+    const [price,
+        setPrice] = useState(-1);
+    const [currentPage,
+        setCurrentPage] = useState(1);
+    const [sortColumn,
+        setSortColumn] = useState("brand");
+    const [sortOrder,
+        setSortOrder] = useState < "asc" | "desc" > ("asc");
+    const [count,
+        setCount] = useState(1);
 
-    const handleSort = (column: string) => {
+    const handleSort = (column : string) => {
         if (column === sortColumn) {
-          setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+            setSortOrder(sortOrder === "asc"
+                ? "desc"
+                : "asc");
         } else {
-          setSortColumn(column);
-          setSortOrder("asc");
+            setSortColumn(column);
+            setSortOrder("asc");
         }
-        if(sortOrder == "asc"){
-                smartphones.sort((a, b) => a.launchDate.localeCompare(b.launchDate));
-            }       
-        else{
-                smartphones.sort((b, a) => a.launchDate.localeCompare(b.launchDate));
-            }  
-            
-      };
-      
+        if (sortOrder == "asc") {
+            smartphones.sort((a, b) => a.launchDate.localeCompare(b.launchDate));
+        } else {
+            smartphones.sort((b, a) => a.launchDate.localeCompare(b.launchDate));
+        }
+
+    };
 
     const handlePriceTextFIeld = (event : React.ChangeEvent < HTMLInputElement | HTMLTextAreaElement >) => {
         const inputtedPrice = Number(event.target.value);
@@ -69,7 +76,7 @@ function SmartphoneGetAll() {
             .then(res => res.json())
             .then(data => setCount(data));
         if (price == -1) {
-            fetch(`${BACKEND_API_URL}/smartphone/byPage/${currentPage-1}`)
+            fetch(`${BACKEND_API_URL}/smartphone/byPage/${currentPage - 1}`)
                 .then(res => res.json())
                 .then(data => {
                     setSmartphones(data);
@@ -130,8 +137,8 @@ function SmartphoneGetAll() {
                             <TableRow>
                                 <TableCell>#</TableCell>
                                 <TableCell>
-                                        Brand
-                                    </TableCell>
+                                    Brand
+                                </TableCell>
                                 <TableCell>
                                     Model
                                 </TableCell>
@@ -143,11 +150,10 @@ function SmartphoneGetAll() {
                                 </TableCell>
                                 <TableCell>
                                     <TableSortLabel
-                                            active={sortColumn === "launchDate"}
-                                            direction={sortOrder}
-                                            onClick={() => handleSort("launchDate")}
-                                    >
-                                    Launch date
+                                        active={sortColumn === "launchDate"}
+                                        direction={sortOrder}
+                                        onClick={() => handleSort("launchDate")}>
+                                        Launch date
                                     </TableSortLabel>
                                 </TableCell>
                                 <TableCell>
@@ -195,32 +201,32 @@ function SmartphoneGetAll() {
                             ))}
                         </TableBody>
                     </Table>
-                    <List sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    padding: "1px"
-                }}>
+                    <List
+                        sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        padding: "1px"
+                    }}>
                         <ListItem>
                             <Pagination
-                                onPageChange={(page: number) => setCurrentPage(page)}
+                                onPageChange={(page : number) => setCurrentPage(page)}
                                 totalCount={count}
                                 currentPage={currentPage}
                                 pageSize={10}
-                                className="pagination-bar"
-                            />
+                                className="pagination-bar"/>
                         </ListItem>
                         <ListItem>
                             <TextField
                                 id="page"
                                 label="Page:"
                                 type="number"
-                                sx={{mb: 2}}
+                                sx={{
+                                mb: 2
+                            }}
                                 onKeyDown={(event) => {
-                                    if(event.key === "Enter")
-                                        setCurrentPage(Number(event.target.value));
-                                }}
-                            >
-                            </TextField>
+                                if (event.key === "Enter") 
+                                    setCurrentPage(Number(event.target.value));
+                                }}></TextField>
                         </ListItem>
                     </List>
                 </TableContainer>

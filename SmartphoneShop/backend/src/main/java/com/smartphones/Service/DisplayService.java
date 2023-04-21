@@ -39,16 +39,16 @@ public class DisplayService extends EntityService<Display>{
         Pageable pageable = PageRequest.of(0, 20);
 
         type = query.split("[0-9]")[0].strip();
-        String typeAndRestString = query.substring(type.split("[0-9]")[0].length() + 1);
+        String typeAndRestString = query.substring(type.length());
         sizeAndResolution = typeAndRestString.split(" ");
-        if(sizeAndResolution[0].length() < 1)
+        if(sizeAndResolution.length < 2)
             return displayRepository.findByTypeContaining(type, pageable);
 
-        size = Double.parseDouble(sizeAndResolution[0]);
-        if(sizeAndResolution.length < 2 || sizeAndResolution[1].split("x").length < 2)
+        size = Double.parseDouble(sizeAndResolution[1]);
+        if(sizeAndResolution.length < 3 || sizeAndResolution[2].split("x").length < 2)
             return displayRepository.findByTypeContainingAndSize(type, size, pageable);
 
-        String[] resolution = sizeAndResolution[1].split("x");
+        String[] resolution = sizeAndResolution[2].split("x");
         resolutionWidth = Integer.parseInt(resolution[0]);
         resolutionHeight = Integer.parseInt(resolution[1]);
         return ((DisplayRepository) repository).findByTypeContainingAndSizeAndResolutionWidthAndResolutionHeight(

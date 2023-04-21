@@ -1,26 +1,47 @@
-import { Button, Card, CardActions, CardContent, IconButton, InputLabel, Select, TextField, MenuItem} from "@mui/material";
+import { Button, Card, CardActions, CardContent, IconButton, InputLabel, Select, TextField, MenuItem, Autocomplete} from "@mui/material";
 import { Container } from "@mui/system";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BACKEND_API_URL } from "../../constants";
 import { Smartphone } from "../../model/Smartphone";
 import { Display } from "../../model/Display";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
+import axios from "axios";
+import {debounce} from "lodash";
 
 export const SmartphoneForm = (
     { apiCallMethod, smartphone, setSmartphone, btnMsg} : 
     { apiCallMethod: any, smartphone: Smartphone, setSmartphone: any, btnMsg: any}) =>{
 
 	const [displays, setDisplays] = useState<Display[]>([]);
-	useEffect(() => {
-		fetch(`${BACKEND_API_URL}/display`)
-		  .then(res => res.json())
-		  .then(data => {
+
+	const fetchSuggestions = async(query: string) => {
+		try{
+			const response = await axios.get<Display[]>(
+				`${BACKEND_API_URL}/display/autocomplete?query=${query}`
+			);
+			const data = await response.data;
 			setDisplays(data);
-		  })
-	  }, []);
+		}catch(error){
+			console.error("Error fetching suggestions:", error);
+		}
+	}
     
-	const [selectedVal, setSelectedVal] = useState(0);
+	const debouncedFetchSuggestions = useCallback(debounce(fetchSuggestions, 500), []);
+
+	useEffect(() => {
+		return () => {
+			debouncedFetchSuggestions.cancel();
+		};
+	},[debouncedFetchSuggestions]);
+
+	const handleInputChange = (event: any, value: any, reason: any) => {
+		console.log("input", value, reason);
+
+		if (reason === "input") {
+			debouncedFetchSuggestions(value);
+		}
+	};
 
     return (
 		<Container>
@@ -83,29 +104,20 @@ export const SmartphoneForm = (
 						<InputLabel sx={{float: "left"}}>
 								Main display:
 						</InputLabel>
-						<Select
+						<Autocomplete
 							id="display"
-							variant="outlined"
-							label="Display"
-							value={selectedVal}
-                            defaultValue={smartphone.display.id}
-							fullWidth
-							displayEmpty
-							sx={{mb: 2}}
-							onChange={(event) => {
-								setSmartphone({ ...smartphone, 
-									display: displays.find(d => d.id == event.target.value as number ) as Display})
-								setSelectedVal(event.target.value as number)
+							options={displays}
+							getOptionLabel={(option) => `${option.type} ${option.size} inch ${option.resolutionWidth}x${option.resolutionHeight}`}
+							renderInput={(params) => <TextField {...params} label="type size widthxheight" variant="outlined" />}
+							filterOptions={(x) => x}
+							onInputChange={handleInputChange}
+							onChange={(event, value) => {
+								if (value) {
+									console.log(value);
+									setSmartphone({ ...smartphone, display_id: value.id });
+								}
 							}}
-						>	
-							<MenuItem value="0" disabled>Pick a display</MenuItem>
-							{displays.map((display: Display) => {
-								return(
-								    <MenuItem value={display.id}>
-										{display.type} {display.size} inch {display.resolutionHeight}x{display.resolutionWidth}
-									</MenuItem>)
-							})}
-						</Select>
+						/>
 						<Button type="submit" sx={{float: "left"}}>{btnMsg}</Button>
 					</form>
 				</CardContent>
