@@ -20,6 +20,7 @@ import {
     CircularProgress,
     TableSortLabel
 } from "@mui/material";
+import Pagination from '../pagination/Pagination'
 import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit"
@@ -28,15 +29,13 @@ import {BACKEND_API_URL} from "../../constants";
 import {inherits} from "util";
 
 function SmartphoneGetAll() {
-    const [smartphones,
-        setSmartphones] = useState<Smartphone[]>([]);
-    const [loading,
-        setLoading] = useState(false);
-    const [price,
-        setPrice] = useState(-1);
-
+    const [smartphones, setSmartphones] = useState<Smartphone[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [price, setPrice] = useState(-1);
+    const [currentPage, setCurrentPage] = useState(1);
     const [sortColumn, setSortColumn] = useState("brand");
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+    const [count, setCount] = useState(1);
 
     const handleSort = (column: string) => {
         if (column === sortColumn) {
@@ -66,8 +65,11 @@ function SmartphoneGetAll() {
 
     useEffect(() => {
         setLoading(true);
+        fetch(`${BACKEND_API_URL}/smartphone/count`)
+            .then(res => res.json())
+            .then(data => setCount(data));
         if (price == -1) {
-            fetch(`${BACKEND_API_URL}/smartphone`)
+            fetch(`${BACKEND_API_URL}/smartphone/byPage/${currentPage-1}`)
                 .then(res => res.json())
                 .then(data => {
                     setSmartphones(data);
@@ -81,7 +83,7 @@ function SmartphoneGetAll() {
                     setLoading(false);
                 })
         }
-    }, [price]);
+    }, [price, currentPage]);
 
     return (
         <Container sx={{
@@ -128,40 +130,16 @@ function SmartphoneGetAll() {
                             <TableRow>
                                 <TableCell>#</TableCell>
                                 <TableCell>
-                                    <TableSortLabel
-                                         active={sortColumn === "brand"}
-                                         direction={sortOrder}
-                                         onClick={() => handleSort("brand")}
-                                    >
                                         Brand
-                                    </TableSortLabel>
                                     </TableCell>
                                 <TableCell>
-                                    <TableSortLabel
-                                         active={sortColumn === "model"}
-                                         direction={sortOrder}
-                                         onClick={() => handleSort("model")}
-                                    >
                                     Model
-                                    </TableSortLabel>
                                 </TableCell>
                                 <TableCell>
-                                <TableSortLabel
-                                         active={sortColumn === "price"}
-                                         direction={sortOrder}
-                                         onClick={() => handleSort("price")}
-                                    >
                                     Price
-                                    </TableSortLabel>
                                 </TableCell>
                                 <TableCell>
-                                    <TableSortLabel
-                                            active={sortColumn === "storageCapacity"}
-                                            direction={sortOrder}
-                                            onClick={() => handleSort("storageCapacity")}
-                                    >
                                     Storage Capacity
-                                    </TableSortLabel>
                                 </TableCell>
                                 <TableCell>
                                     <TableSortLabel
@@ -217,6 +195,13 @@ function SmartphoneGetAll() {
                             ))}
                         </TableBody>
                     </Table>
+                    <Pagination
+                        onPageChange={(page: number) => setCurrentPage(page)}
+                        totalCount={count}
+                        currentPage={currentPage}
+                        pageSize={10}
+                        className="pagination-bar"
+                    />
                 </TableContainer>
             )}
         </Container>

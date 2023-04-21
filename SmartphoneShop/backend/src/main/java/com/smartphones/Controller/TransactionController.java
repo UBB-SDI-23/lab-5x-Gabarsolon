@@ -27,8 +27,8 @@ public class TransactionController{
         return new ResponseEntity<>(transactionService.getById(id), HttpStatus.OK);
     }
     @GetMapping
-    public ResponseEntity<Object> getAllTransactions(){
-        return new ResponseEntity<>(transactionService.getAll(), HttpStatus.OK);
+    public ResponseEntity<Object> getAllTransactions(@PathVariable Integer pageNumber){
+        return new ResponseEntity<>(transactionService.getAll(pageNumber), HttpStatus.OK);
     }
 
     @PostMapping

@@ -29,9 +29,14 @@ public class SmartphoneController {
     public ResponseEntity<Object> getSmartphoneById(@PathVariable Long id) {
         return new ResponseEntity<>(smartphoneService.getById(id), HttpStatus.OK);
     }
-    @GetMapping
-    public ResponseEntity<Object> getAllSmartphones(){
-        return new ResponseEntity<>(smartphoneService.getAll(), HttpStatus.OK);
+    @GetMapping("/byPage/{pageNumber}")
+    public ResponseEntity<Object> getAllSmartphones(@PathVariable Integer pageNumber){
+        return new ResponseEntity<>(smartphoneService.getAll(pageNumber), HttpStatus.OK);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Object> getCount(){
+        return new ResponseEntity<>(smartphoneService.getCount(), HttpStatus.OK);
     }
 
     @PostMapping

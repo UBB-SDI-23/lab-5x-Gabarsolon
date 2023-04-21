@@ -23,8 +23,8 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> getAllCustomers(){
-        return new ResponseEntity<>(customerService.getAll(), HttpStatus.OK);
+    public ResponseEntity<Object> getAllCustomers(@PathVariable Integer pageNumber){
+        return new ResponseEntity<>(customerService.getAll(pageNumber), HttpStatus.OK);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Object> getCustomerById(@PathVariable Long id){
