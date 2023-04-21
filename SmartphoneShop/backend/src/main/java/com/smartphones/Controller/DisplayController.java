@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -31,6 +33,12 @@ public class DisplayController {
     @GetMapping
     public ResponseEntity<Object> getAllDisplays(){
         return new ResponseEntity<>(displayService.getAllDisplayIds(), HttpStatus.OK);
+    }
+
+    @GetMapping("/autocomplete")
+    public ResponseEntity<Object> getDisplaysByNameSizeResolution(@RequestParam(name="query") String query){
+        return new ResponseEntity<>(displayService.getDisplaysByTypeSizeResolution(
+                URLDecoder.decode(query, StandardCharsets.UTF_8)), HttpStatus.OK);
     }
 
     @PostMapping

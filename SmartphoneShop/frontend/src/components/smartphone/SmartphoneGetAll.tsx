@@ -195,13 +195,34 @@ function SmartphoneGetAll() {
                             ))}
                         </TableBody>
                     </Table>
-                    <Pagination
-                        onPageChange={(page: number) => setCurrentPage(page)}
-                        totalCount={count}
-                        currentPage={currentPage}
-                        pageSize={10}
-                        className="pagination-bar"
-                    />
+                    <List sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    padding: "1px"
+                }}>
+                        <ListItem>
+                            <Pagination
+                                onPageChange={(page: number) => setCurrentPage(page)}
+                                totalCount={count}
+                                currentPage={currentPage}
+                                pageSize={10}
+                                className="pagination-bar"
+                            />
+                        </ListItem>
+                        <ListItem>
+                            <TextField
+                                id="page"
+                                label="Page:"
+                                type="number"
+                                sx={{mb: 2}}
+                                onKeyDown={(event) => {
+                                    if(event.key === "Enter")
+                                        setCurrentPage(Number(event.target.value));
+                                }}
+                            >
+                            </TextField>
+                        </ListItem>
+                    </List>
                 </TableContainer>
             )}
         </Container>

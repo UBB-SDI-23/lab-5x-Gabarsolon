@@ -8,7 +8,7 @@ fake = Faker()
 
 
 def generate_displays():
-    type = ["Super AMOLED", "LTPO Super Retina XDR OLED", "Monochrome graphic", "Fluid AMOLED", "Super Retina OLED"
+    type = ["Super AMOLED", "LTPO Super Retina XDR OLED", "Monochrome graphic", "Fluid AMOLED", "Super Retina OLED",
                                                                                                 "AMOLED", "LTPO AMOLED",
             "IPS LCD", "TFT"]
     protection = ["Asahi Dragontrail Glass", "Ceramic Shield Glass", "PVC", "Corning Gorilla Glass Victus",

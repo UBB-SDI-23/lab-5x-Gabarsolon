@@ -6,6 +6,8 @@ import com.smartphones.Repository.DisplayRepository;
 import com.smartphones.Repository.SmartphoneRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +27,32 @@ public class DisplayService extends EntityService<Display>{
 
     public List<Long> getAllDisplayIds(){
         return repository.findAll().stream().map(display -> display.getId()).collect(Collectors.toList());
+    }
+
+    public List<Display> getDisplaysByTypeSizeResolution(String query){
+        String type;
+        Double size;
+        Integer resolutionWidth, resolutionHeight;
+
+        String[] sizeAndResolution;
+        DisplayRepository displayRepository = (DisplayRepository)repository;
+        Pageable pageable = PageRequest.of(0, 20);
+
+        type = query.split("[0-9]")[0].strip();
+        String typeAndRestString = query.substring(type.split("[0-9]")[0].length() + 1);
+        sizeAndResolution = typeAndRestString.split(" ");
+        if(sizeAndResolution[0].length() < 1)
+            return displayRepository.findByTypeContaining(type, pageable);
+
+        size = Double.parseDouble(sizeAndResolution[0]);
+        if(sizeAndResolution.length < 2 || sizeAndResolution[1].split("x").length < 2)
+            return displayRepository.findByTypeContainingAndSize(type, size, pageable);
+
+        String[] resolution = sizeAndResolution[1].split("x");
+        resolutionWidth = Integer.parseInt(resolution[0]);
+        resolutionHeight = Integer.parseInt(resolution[1]);
+        return ((DisplayRepository) repository).findByTypeContainingAndSizeAndResolutionWidthAndResolutionHeight(
+                type, size, resolutionWidth, resolutionHeight, PageRequest.of(0, 20));
     }
 
     public void update(Display newDisplay, Long id){
