@@ -40,7 +40,7 @@ public class SmartphoneServiceTests {
 
         when(smartphoneRepository.findAll()).thenReturn(smartphoneList);
 
-        List<Smartphone> requiredSmartphones = smartphoneService.getSmartphonesWithPriceHigherThanGivenValue(new BigDecimal(150));
+        List<Smartphone> requiredSmartphones = smartphoneService.getSmartphonesWithPriceHigherThanGivenValue(new BigDecimal(150),10);
         assertThat(requiredSmartphones).contains(s2);
         assertThat(requiredSmartphones).contains(s3);
     }

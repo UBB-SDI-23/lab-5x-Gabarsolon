@@ -4,6 +4,7 @@ import com.smartphones.Model.Smartphone;
 import com.smartphones.Repository.SmartphoneRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -35,9 +36,8 @@ public class SmartphoneService extends EntityService<Smartphone>{
         });
     }
 
-    public List<Smartphone> getSmartphonesWithPriceHigherThanGivenValue(BigDecimal price){
-        return repository.findAll().stream().filter(smartphone -> smartphone.getPrice().compareTo(price) == 1)
-                .collect(Collectors.toList());
+    public List<Smartphone> getSmartphonesWithPriceHigherThanGivenValue(BigDecimal price, Integer pageNumber){
+        return ((SmartphoneRepository)repository).findByPriceGreaterThan(price, PageRequest.of(pageNumber, 10));
     }
 
 }

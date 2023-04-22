@@ -65,8 +65,9 @@ public class SmartphoneController {
         return new ResponseEntity<>("Smartphone deleted succesfully", HttpStatus.OK);
     }
 
-    @GetMapping("/getWithPriceHigherThan/{price}")
-    public ResponseEntity<Object> getSmartphonesWithPriceHigherThanGivenValue(@PositiveOrZero @PathVariable BigDecimal price){
-        return new ResponseEntity<>(smartphoneService.getSmartphonesWithPriceHigherThanGivenValue(price), HttpStatus.OK);
+    @GetMapping("/getWithPriceHigherThan/{pageNumber}")
+    public ResponseEntity<Object> getSmartphonesWithPriceHigherThanGivenValue(@PositiveOrZero @PathVariable Integer pageNumber,
+                                                                              @RequestParam BigDecimal price){
+        return new ResponseEntity<>(smartphoneService.getSmartphonesWithPriceHigherThanGivenValue(price, pageNumber), HttpStatus.OK);
     }
 }

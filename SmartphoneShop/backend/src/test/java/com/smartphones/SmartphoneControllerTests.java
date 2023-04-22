@@ -49,7 +49,7 @@ class SmartphoneControllerTests {
 	@Test
 	void givenSmartphones_whenGetWithPriceHigherThanGivenValueAndSpecificSmartphoneExists_thenReturnedJsonArrayShouldContainSpecificSmartphone()
 			throws Exception{
-		when(smartphoneService.getSmartphonesWithPriceHigherThanGivenValue(new BigDecimal(150))).thenReturn(smartphoneList);
+		when(smartphoneService.getSmartphonesWithPriceHigherThanGivenValue(new BigDecimal(150),0)).thenReturn(smartphoneList);
 
 		this.mockMvc.perform(get("/api/smartphone/getWithPriceHigherThan/150"))
 				.andDo(print())
@@ -60,7 +60,7 @@ class SmartphoneControllerTests {
 	@Test
 	void givenSmartphonesAndNoPrice_whenGetWithPriceHigherThan_thenStatusIsNotFound()
 		throws Exception{
-		when(smartphoneService.getSmartphonesWithPriceHigherThanGivenValue(new BigDecimal(150))).thenReturn(smartphoneList);
+		when(smartphoneService.getSmartphonesWithPriceHigherThanGivenValue(new BigDecimal(150),0)).thenReturn(smartphoneList);
 		this.mockMvc.perform(get("/api/smartphone/getWithPriceHigherThan/"))
 				.andDo(print())
 				.andExpect(status().isNotFound());

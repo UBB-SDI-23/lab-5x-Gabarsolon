@@ -72,10 +72,11 @@ function SmartphoneGetAll() {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${BACKEND_API_URL}/smartphone/count`)
-            .then(res => res.json())
-            .then(data => setCount(data));
+        
         if (price == -1) {
+            fetch(`${BACKEND_API_URL}/smartphone/count`)
+                .then(res => res.json())
+                .then(data => setCount(data));
             fetch(`${BACKEND_API_URL}/smartphone/byPage/${currentPage - 1}`)
                 .then(res => res.json())
                 .then(data => {
@@ -83,7 +84,7 @@ function SmartphoneGetAll() {
                     setLoading(false);
                 })
         } else {
-            fetch(`${BACKEND_API_URL}/smartphone/getWithPriceHigherThan/${price}`)
+            fetch(`${BACKEND_API_URL}/smartphone/getWithPriceHigherThan/${currentPage}?price=${price}`)
                 .then(res => res.json())
                 .then(data => {
                     setSmartphones(data);
