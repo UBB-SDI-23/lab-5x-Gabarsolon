@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import {Smartphone} from "../../model/Smartphone";
 import {Display} from "../../model/Display";
 import {
     Table,
@@ -28,76 +27,36 @@ import {Link} from "react-router-dom";
 import {BACKEND_API_URL} from "../../constants";
 import {inherits} from "util";
 
-function SmartphoneGetAll() {
-    const [smartphones,
-        setSmartphones] = useState < Smartphone[] > ([]);
+function DisplayGetAll() {
+    const [displays,
+        setDisplays] = useState < Display[] > ([]);
     const [loading,
         setLoading] = useState(false);
-    const [price,
-        setPrice] = useState(-1);
     const [currentPage,
         setCurrentPage] = useState(1);
-    const [sortColumn,
-        setSortColumn] = useState("brand");
-    const [sortOrder,
-        setSortOrder] = useState < "asc" | "desc" > ("asc");
     const [count,
         setCount] = useState(1);
 
-    const handleSort = (column : string) => {
-        if (column === sortColumn) {
-            setSortOrder(sortOrder === "asc"
-                ? "desc"
-                : "asc");
-        } else {
-            setSortColumn(column);
-            setSortOrder("asc");
-        }
-        if (sortOrder == "asc") {
-            smartphones.sort((a, b) => a.launchDate.localeCompare(b.launchDate));
-        } else {
-            smartphones.sort((b, a) => a.launchDate.localeCompare(b.launchDate));
-        }
-
-    };
-
-    const handlePriceTextFIeld = (event : React.ChangeEvent < HTMLInputElement | HTMLTextAreaElement >) => {
-        const inputtedPrice = Number(event.target.value);
-        if (!isNaN(inputtedPrice)) {
-            setPrice(Number(inputtedPrice));
-        } else {
-            setPrice(-1);
-        }
-    }
 
     useEffect(() => {
         setLoading(true);
-        
-        if (price == -1) {
-            fetch(`${BACKEND_API_URL}/smartphone/count`)
-                .then(res => res.json())
-                .then(data => setCount(data));
-            fetch(`${BACKEND_API_URL}/smartphone/byPage/${currentPage - 1}`)
-                .then(res => res.json())
-                .then(data => {
-                    setSmartphones(data);
-                    setLoading(false);
-                })
-        } else {
-            fetch(`${BACKEND_API_URL}/smartphone/getWithPriceHigherThan/${currentPage}?price=${price}`)
-                .then(res => res.json())
-                .then(data => {
-                    setSmartphones(data);
-                    setLoading(false);
-                })
-        }
-    }, [price, currentPage]);
+        fetch(`${BACKEND_API_URL}/display/count`)
+            .then(res => res.json())
+            .then(data => setCount(data));
+        fetch(`${BACKEND_API_URL}/display/byPage/${currentPage - 1}`)
+            .then(res => res.json())
+            .then(data => {
+                setDisplays(data);
+                setLoading(false);
+            })
+
+    }, [currentPage]);
 
     return (
         <Container sx={{
             marginTop: "40px",
         }}>
-            <Typography variant="h3" color="black" align="left">All Smartphones</Typography>
+            <Typography variant="h3" color="black" align="left">All Displays</Typography>
             {(
                 <List
                     sx={{
@@ -108,23 +67,9 @@ function SmartphoneGetAll() {
                     <ListItem sx={{
                         width: "auto"
                     }}>
-                        <Button variant="outlined" component={Link} to={`/smartphones/add`}>
-                            + Add new smartphone
+                        <Button variant="outlined" component={Link} to={`/displays/add`}>
+                            + Add new display
                         </Button>
-                    </ListItem>
-                    <ListItem sx={{
-                        width: "auto"
-                    }}>
-                        <TextField
-                            id="filter"
-                            label="Having price higher than:"
-                            fullWidth
-                            sx={{
-                            mb: 2
-                        }}
-                            onChange={(event) => {
-                            handlePriceTextFIeld(event);
-                        }}></TextField>
                     </ListItem>
                 </List>
             )}
@@ -138,52 +83,39 @@ function SmartphoneGetAll() {
                             <TableRow>
                                 <TableCell>#</TableCell>
                                 <TableCell>
-                                    Brand
+                                    Type
                                 </TableCell>
                                 <TableCell>
-                                    Model
+                                    Size
                                 </TableCell>
                                 <TableCell>
-                                    Price
+                                    Resolution Width
                                 </TableCell>
                                 <TableCell>
-                                    Storage Capacity
+                                    Resolution Height
                                 </TableCell>
                                 <TableCell>
-                                    <TableSortLabel
-                                        active={sortColumn === "launchDate"}
-                                        direction={sortOrder}
-                                        onClick={() => handleSort("launchDate")}>
-                                        Launch date
-                                    </TableSortLabel>
-                                </TableCell>
-                                <TableCell>
-                                    Description
-                                </TableCell>
-                                <TableCell>
-                                    Display Type
+                                    Protection
                                 </TableCell>
                                 <TableCell>Operations</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {smartphones.map((smartphone : Smartphone, index) => (
+                            {displays.map((display : Display, index) => (
                                 <TableRow key={index}>
                                     <TableCell>{index + 1}</TableCell>
-                                    <TableCell>{smartphone.brand}</TableCell>
-                                    <TableCell>{smartphone.model}</TableCell>
-                                    <TableCell>{smartphone.price}</TableCell>
-                                    <TableCell>{smartphone.storageCapacity}</TableCell>
-                                    <TableCell>{smartphone.launchDate}</TableCell>
-                                    <TableCell>{smartphone.description}</TableCell>
-                                    <TableCell>{smartphone.display.type}</TableCell>
+                                    <TableCell>{display.type}</TableCell>
+                                    <TableCell>{display.size}</TableCell>
+                                    <TableCell>{display.resolutionWidth}</TableCell>
+                                    <TableCell>{display.resolutionHeight}</TableCell>
+                                    <TableCell>{display.protection}</TableCell>
                                     <TableCell>
                                         <IconButton
                                             component={Link}
                                             sx={{
                                             mr: 3
                                         }}
-                                            to={`/smartphones/delete/${smartphone.id}`}>
+                                            to={`/displays/delete/${display.id}`}>
                                             <Tooltip title="Delete" arrow>
                                                 <DeleteForeverIcon
                                                     sx={{
@@ -196,7 +128,7 @@ function SmartphoneGetAll() {
                                             sx={{
                                             mr: 3
                                         }}
-                                            to={`/smartphones/update/${smartphone.id}`}>
+                                            to={`/displays/update/${display.id}`}>
                                             <Tooltip title="Update" arrow>
                                                 <EditIcon/>
                                             </Tooltip>
@@ -240,4 +172,4 @@ function SmartphoneGetAll() {
     );
 }
 
-export default SmartphoneGetAll;
+export default DisplayGetAll;

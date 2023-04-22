@@ -33,6 +33,33 @@ export const AppMenu = () => {
 						startIcon={<LocalLibraryIcon />}>
 						Smartphones
 					</Button>
+					<Button
+						variant={path.startsWith("/displays") ? "outlined" : "text"}
+						to="/displays"
+						component={Link}
+						color="inherit"
+						sx={{ mr: 5 }}
+						startIcon={<LocalLibraryIcon />}>
+						Displays
+					</Button>
+					<Button
+						variant={path.startsWith("/customers") ? "outlined" : "text"}
+						to="/customers"
+						component={Link}
+						color="inherit"
+						sx={{ mr: 5 }}
+						startIcon={<LocalLibraryIcon />}>
+						Customers
+					</Button>
+					<Button
+						variant={path.startsWith("/transactions") ? "outlined" : "text"}
+						to="/transactions"
+						component={Link}
+						color="inherit"
+						sx={{ mr: 5 }}
+						startIcon={<LocalLibraryIcon />}>
+						Transactions
+					</Button>
 				</Toolbar>
 			</AppBar>
 		</Box>

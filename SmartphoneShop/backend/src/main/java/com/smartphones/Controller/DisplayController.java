@@ -30,11 +30,15 @@ public class DisplayController {
     public ResponseEntity<Object> getDisplayById(@PathVariable Long id) {
         return new ResponseEntity<>(displayService.getById(id), HttpStatus.OK);
     }
-    @GetMapping
-    public ResponseEntity<Object> getAllDisplays(){
-        return new ResponseEntity<>(displayService.getAllDisplayIds(), HttpStatus.OK);
+    @GetMapping("/byPage/{pageNumber}")
+    public ResponseEntity<Object> getAllDisplays(@PathVariable Integer pageNumber){
+        return new ResponseEntity<>(displayService.getAll(pageNumber), HttpStatus.OK);
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<Object> getCount(){
+        return new ResponseEntity<>(displayService.getCount(), HttpStatus.OK);
+    }
     @GetMapping("/autocomplete")
     public ResponseEntity<Object> getDisplaysByNameSizeResolution(@RequestParam(name="query") String query){
         return new ResponseEntity<>(displayService.getDisplaysByTypeSizeResolution(

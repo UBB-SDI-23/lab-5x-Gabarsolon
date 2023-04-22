@@ -15,6 +15,7 @@ export const SmartphoneAdd = () => {
 		price: 0,
 		storageCapacity: 0,
 		launchDate: "",
+		description: "",
 		display: new Display()
 	});
 

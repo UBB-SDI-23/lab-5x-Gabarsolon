@@ -7,5 +7,6 @@ export class Smartphone{
     price: number = 0;
     storageCapacity: number = 0;
     launchDate: string = "";
+    description: string = "";
     display: Display = new Display(); 
 }
