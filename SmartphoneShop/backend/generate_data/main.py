@@ -4,7 +4,7 @@ import faker.providers.date_time
 import random
 from faker import Faker
 
-fake = Faker()
+fake = Faker('ro_RO')
 
 
 def generate_displays():
@@ -139,4 +139,5 @@ def generate_description_for_smartphones():
 # generate_customers()
 # generate_transactions()
 # generate_description_for_smartphones()
-print(fake.text(max_nb_chars=255))
+# print(fake.text(max_nb_chars=255))
+print(fake.first_name() + " " + fake.last_name())

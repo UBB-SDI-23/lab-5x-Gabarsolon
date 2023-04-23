@@ -14,6 +14,10 @@ import DisplayGetAll from './components/display/DisplayGetAll'
 import { DisplayAdd } from './components/display/DisplayAdd'
 import { DisplayDelete } from './components/display/DisplayDelete'
 import { DisplayUpdate } from './components/display/DisplayUpdate'
+import CustomerGetAll from './components/customer/CustomerGetAll'
+import { CustomerAdd } from './components/customer/CustomerAdd'
+import { CustomerDelete } from './components/customer/CustomerDelete'
+import { CustomerUpdate } from './components/customer/CustomerUpdate'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -34,6 +38,11 @@ function App() {
         <Route path="/displays/add" element={<DisplayAdd/>}/>
         <Route path="/displays/delete/:id" element={<DisplayDelete/>}/>
         <Route path="/displays/update/:id" element={<DisplayUpdate/>}/>
+
+        <Route path="/customers" element={<CustomerGetAll/>}/>
+        <Route path="/customers/add" element={<CustomerAdd/>}/>
+        <Route path="/customers/delete/:id" element={<CustomerDelete/>}/>
+        <Route path="/customers/update/:id" element={<CustomerUpdate/>}/>
       </Routes>
     </Router>
   </React.Fragment>

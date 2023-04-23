@@ -22,10 +22,16 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping
+    @GetMapping("/byPage/{pageNumber}")
     public ResponseEntity<Object> getAllCustomers(@PathVariable Integer pageNumber){
         return new ResponseEntity<>(customerService.getAll(pageNumber), HttpStatus.OK);
     }
+
+    @GetMapping("/count")
+    public ResponseEntity<Object> getCount(){
+        return new ResponseEntity<>(customerService.getCount(), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Object> getCustomerById(@PathVariable Long id){
         return new ResponseEntity<>(customerService.getById(id), HttpStatus.OK);
