@@ -35,6 +35,7 @@ function DisplayGetAll() {
         setCurrentPage] = useState(1);
     const [count,
         setCount] = useState(1);
+    const [pageVal, setPageVal] = useState(1);
 
 
     useEffect(() => {
@@ -156,12 +157,16 @@ function DisplayGetAll() {
                                 id="page"
                                 label="Page:"
                                 type="number"
+                                value={pageVal}
                                 sx={{
                                 mb: 2
                             }}
+                                onChange={(event) => {
+                                    setPageVal(Number(event.target.value));
+                                }}
                                 onKeyDown={(event) => {
                                 if (event.key === "Enter") 
-                                    setCurrentPage(Number(event.target.value));
+                                    setCurrentPage(pageVal);
                                 }}></TextField>
                         </ListItem>
                     </List>

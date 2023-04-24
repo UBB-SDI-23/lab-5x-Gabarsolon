@@ -36,6 +36,7 @@ function CustomerGetAll() {
         setCurrentPage] = useState(1);
     const [count,
         setCount] = useState(1);
+    const [pageVal, setPageVal] = useState(1);
 
 
     useEffect(() => {
@@ -160,9 +161,12 @@ function CustomerGetAll() {
                                 sx={{
                                 mb: 2
                             }}
+                                onChange={(event) => {
+                                    setPageVal(Number(event.target.value));
+                                }}
                                 onKeyDown={(event) => {
                                 if (event.key === "Enter") 
-                                    setCurrentPage(Number(event.target.value));
+                                    setCurrentPage(pageVal);
                                 }}></TextField>
                         </ListItem>
                     </List>

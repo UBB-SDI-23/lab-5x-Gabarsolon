@@ -43,6 +43,7 @@ function SmartphoneGetAll() {
         setSortOrder] = useState < "asc" | "desc" > ("asc");
     const [count,
         setCount] = useState(1);
+    const [pageVal, setPageVal] = useState(1);
 
     const handleSort = (column : string) => {
         if (column === sortColumn) {
@@ -225,12 +226,16 @@ function SmartphoneGetAll() {
                                 id="page"
                                 label="Page:"
                                 type="number"
+                                value={pageVal}
                                 sx={{
                                 mb: 2
                             }}
+                                onChange={(event) => {
+                                    setPageVal(Number(event.target.value));
+                                }}
                                 onKeyDown={(event) => {
                                 if (event.key === "Enter") 
-                                    setCurrentPage(Number(event.target.value));
+                                    setCurrentPage(pageVal);
                                 }}></TextField>
                         </ListItem>
                     </List>
