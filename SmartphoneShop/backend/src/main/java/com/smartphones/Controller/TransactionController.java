@@ -26,9 +26,14 @@ public class TransactionController{
     public ResponseEntity<Object> getTransactionById(@PathVariable Long id) {
         return new ResponseEntity<>(transactionService.getById(id), HttpStatus.OK);
     }
-    @GetMapping
+    @GetMapping("/byPage/{pageNumber}")
     public ResponseEntity<Object> getAllTransactions(@PathVariable Integer pageNumber){
         return new ResponseEntity<>(transactionService.getAll(pageNumber), HttpStatus.OK);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Object> getCount(){
+        return new ResponseEntity<>(transactionService.getCount(), HttpStatus.OK);
     }
 
     @PostMapping

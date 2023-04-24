@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -35,6 +37,12 @@ public class CustomerController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> getCustomerById(@PathVariable Long id){
         return new ResponseEntity<>(customerService.getById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/autocomplete")
+    public ResponseEntity<Object> getCustomersByFirstNameLastNameEmail(@RequestParam(name="query") String query){
+        return new ResponseEntity<>(customerService.getCustomersByFirstNameLastNameEmail(
+                URLDecoder.decode(query, StandardCharsets.UTF_8)), HttpStatus.OK);
     }
 
     @PostMapping

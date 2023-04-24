@@ -18,6 +18,10 @@ import CustomerGetAll from './components/customer/CustomerGetAll'
 import { CustomerAdd } from './components/customer/CustomerAdd'
 import { CustomerDelete } from './components/customer/CustomerDelete'
 import { CustomerUpdate } from './components/customer/CustomerUpdate'
+import TransactionGetAll from './components/transaction/TransactionGetAll'
+import { TransactionAdd } from './components/transaction/TransactionAdd'
+import { TransactionUpdate } from './components/transaction/TransactionUpdate'
+import { TransactionDelete } from './components/transaction/TransactionDelete'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -43,6 +47,11 @@ function App() {
         <Route path="/customers/add" element={<CustomerAdd/>}/>
         <Route path="/customers/delete/:id" element={<CustomerDelete/>}/>
         <Route path="/customers/update/:id" element={<CustomerUpdate/>}/>
+
+        <Route path="/transactions" element={<TransactionGetAll/>}/>
+        <Route path="/transactions/add" element={<TransactionAdd/>}/>
+        <Route path="/transactions/update/:id" element={<TransactionUpdate/>}/>
+        <Route path="/transactions/delete/:id" element={<TransactionDelete/>}/>
       </Routes>
     </Router>
   </React.Fragment>

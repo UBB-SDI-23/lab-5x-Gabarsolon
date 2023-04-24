@@ -11,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -33,7 +35,11 @@ public class SmartphoneController {
     public ResponseEntity<Object> getAllSmartphones(@PathVariable Integer pageNumber){
         return new ResponseEntity<>(smartphoneService.getAll(pageNumber), HttpStatus.OK);
     }
-
+    @GetMapping("/autocomplete")
+    public ResponseEntity<Object> getSmartphonesByBrandModelPrice(@RequestParam(name="query") String query){
+        return new ResponseEntity<>(smartphoneService.getSmartphonesByBrandModelPrice(
+                URLDecoder.decode(query, StandardCharsets.UTF_8)), HttpStatus.OK);
+    }
     @GetMapping("/count")
     public ResponseEntity<Object> getCount(){
         return new ResponseEntity<>(smartphoneService.getCount(), HttpStatus.OK);

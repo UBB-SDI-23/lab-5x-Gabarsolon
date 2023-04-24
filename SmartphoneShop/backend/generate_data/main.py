@@ -4,7 +4,7 @@ import faker.providers.date_time
 import random
 from faker import Faker
 
-fake = Faker('ro_RO')
+fake = Faker()
 
 
 def generate_displays():

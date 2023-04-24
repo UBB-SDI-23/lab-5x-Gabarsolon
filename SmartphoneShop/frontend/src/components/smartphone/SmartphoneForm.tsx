@@ -101,19 +101,16 @@ export const SmartphoneForm = (
 							sx={{ mb: 2 }}
 							onChange={(event) => setSmartphone({ ...smartphone, launchDate: event.target.value})}
 						/>
-						<InputLabel sx={{float: "left"}}>
-								Main display:
-						</InputLabel>
 						<Autocomplete
 							id="display"
 							options={displays}
+							value={smartphone.display}
 							getOptionLabel={(option) => `${option.type} ${option.size} inch ${option.resolutionWidth}x${option.resolutionHeight}`}
-							renderInput={(params) => <TextField {...params} label="type size widthxheight" variant="outlined" />}
+							renderInput={(params) => <TextField {...params} label="Main display(type size widthxheight)" variant="outlined" />}
 							filterOptions={(x) => x}
 							onInputChange={handleInputChange}
 							onChange={(event, value) => {
 								if (value) {
-									console.log(value);
 									setSmartphone({ ...smartphone, display: value });
 								}
 							}}
