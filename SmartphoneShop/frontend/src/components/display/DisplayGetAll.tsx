@@ -25,7 +25,6 @@ import DeleteForeverIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit"
 import {Link} from "react-router-dom";
 import {BACKEND_API_URL} from "../../constants";
-import {inherits} from "util";
 
 function DisplayGetAll() {
     const [displays,

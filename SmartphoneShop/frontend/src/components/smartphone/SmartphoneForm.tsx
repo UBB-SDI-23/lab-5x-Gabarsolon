@@ -114,7 +114,7 @@ export const SmartphoneForm = (
 							onChange={(event, value) => {
 								if (value) {
 									console.log(value);
-									setSmartphone({ ...smartphone, display_id: value.id });
+									setSmartphone({ ...smartphone, display: value });
 								}
 							}}
 						/>
