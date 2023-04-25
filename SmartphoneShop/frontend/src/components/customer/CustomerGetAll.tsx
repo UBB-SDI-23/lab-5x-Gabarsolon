@@ -71,6 +71,9 @@ function CustomerGetAll() {
                         <Button variant="outlined" component={Link} to={`/customers/add`}>
                             + Add new customer
                         </Button>
+                        <Button variant="outlined" component={Link} to={`/customers/getbytotalprice`}>
+                            Get customers sorted by total price of bought smartphones
+                        </Button>
                     </ListItem>
                 </List>
             )}

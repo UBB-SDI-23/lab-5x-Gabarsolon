@@ -3,6 +3,7 @@ package com.smartphones.Service;
 import com.smartphones.Model.*;
 import com.smartphones.Repository.TransactionRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -31,19 +32,10 @@ public class TransactionService extends EntityService<Transaction>{
         });
     }
 
-    public List<CustomerTotalPriceDto> getAllCustomersOrderedDescByTotalPriceOfBoughtSmartphones(){
-        Map<Customer, BigDecimal> customerTotalPrice = repository.findAll().stream()
-                .collect(Collectors.groupingBy(Transaction::getCustomer,
-                        Collectors.mapping(t -> t.getSmartphone().getPrice().multiply(new BigDecimal(t.getQuantity())), Collectors.reducing(BigDecimal.ZERO, BigDecimal::add))));
-
-        return customerTotalPrice.entrySet().stream().map(e->{
-            Customer currentCustomer = e.getKey();
-            return new CustomerTotalPriceDto(currentCustomer.getFirstName(), currentCustomer.getLastName(),
-                    currentCustomer.getPhoneNumber(), currentCustomer.getDateOfBirth(), currentCustomer.getEmail(),
-                    e.getValue());})
-                .sorted(Comparator.comparing(CustomerTotalPriceDto::getTotalPrice, Comparator.reverseOrder()))
-                .collect(Collectors.toList());
-
+    public List<CustomerTotalPriceDto> getAllCustomersOrderedDescByTotalPriceOfBoughtSmartphones(Integer pageNumber){
+            return ((TransactionRepository)repository).findAllCustomersOrderedDescByTotalPriceOfBoughtSmartphones(
+                    PageRequest.of(pageNumber, 10)
+            );
     }
 
     public List<TransactionDTO> getAllCustomersBornBeforeSpecificDateAndSortBoughtSmartphonesByStorageCapacity(String dob){

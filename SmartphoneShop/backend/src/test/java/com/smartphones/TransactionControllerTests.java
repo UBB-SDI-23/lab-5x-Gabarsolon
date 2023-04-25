@@ -56,12 +56,12 @@ public class TransactionControllerTests {
         Transaction t4 = new Transaction(c2, s3, 1, LocalDateTime.parse("2022-02-02T21:15"));
         Transaction t5 = new Transaction(c3, s2, 10, LocalDateTime.parse("2022-02-02T21:15"));
 
-        CustomerTotalPriceDto cDTO1 = new CustomerTotalPriceDto(c1.getFirstName(), c1.getLastName(), c1.getPhoneNumber(),
-                c1.getDateOfBirth(), c1.getEmail(), new BigDecimal(300));
-        CustomerTotalPriceDto cDTO2 = new CustomerTotalPriceDto(c2.getFirstName(), c2.getLastName(), c2.getPhoneNumber(),
-                c2.getDateOfBirth(), c2.getEmail(), new BigDecimal(500));
-        CustomerTotalPriceDto cDTO3 = new CustomerTotalPriceDto(c3.getFirstName(), c3.getLastName(), c3.getPhoneNumber(),
-                c3.getDateOfBirth(), c3.getEmail(), new BigDecimal(2000));
+        CustomerTotalPriceDto cDTO1 = new CustomerTotalPriceDto(0L, c1.getFirstName(), c1.getLastName(), c1.getPhoneNumber(),
+                 new BigDecimal(300));
+        CustomerTotalPriceDto cDTO2 = new CustomerTotalPriceDto(1L,c2.getFirstName(), c2.getLastName(), c2.getPhoneNumber(),
+                 new BigDecimal(500));
+        CustomerTotalPriceDto cDTO3 = new CustomerTotalPriceDto(2L, c3.getFirstName(),c3.getLastName(), c3.getPhoneNumber(),
+                 new BigDecimal(2000));
 
         customerTotalPriceDtoList = Arrays.asList(cDTO1, cDTO2, cDTO3);
     }
@@ -70,7 +70,7 @@ public class TransactionControllerTests {
     public void givenTransactions_getAllCustomersOrderedDescByTotalPriceOfBoughtSmartphones_thenReturnRequiredCustomers()
         throws Exception{
 
-        when(transactionService.getAllCustomersOrderedDescByTotalPriceOfBoughtSmartphones()).thenReturn(customerTotalPriceDtoList);
+        when(transactionService.getAllCustomersOrderedDescByTotalPriceOfBoughtSmartphones(10)).thenReturn(customerTotalPriceDtoList);
 
         mockMvc.perform(get("/api/transaction/getAllCustomersOrderedDescByTotalPriceOfBoughtSmartphones"))
                 .andDo(print())

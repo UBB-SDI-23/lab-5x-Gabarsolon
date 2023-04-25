@@ -22,6 +22,7 @@ import TransactionGetAll from './components/transaction/TransactionGetAll'
 import { TransactionAdd } from './components/transaction/TransactionAdd'
 import { TransactionUpdate } from './components/transaction/TransactionUpdate'
 import { TransactionDelete } from './components/transaction/TransactionDelete'
+import { CustomerGetByTotalPrice } from './components/customer/CustomerGetByTotalPrice'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -47,6 +48,7 @@ function App() {
         <Route path="/customers/add" element={<CustomerAdd/>}/>
         <Route path="/customers/delete/:id" element={<CustomerDelete/>}/>
         <Route path="/customers/update/:id" element={<CustomerUpdate/>}/>
+        <Route path="/customers/getbytotalprice" element={<CustomerGetByTotalPrice/>}/>
 
         <Route path="/transactions" element={<TransactionGetAll/>}/>
         <Route path="/transactions/add" element={<TransactionAdd/>}/>

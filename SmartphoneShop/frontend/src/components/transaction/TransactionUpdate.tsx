@@ -27,7 +27,7 @@ export const TransactionUpdate = () => {
 		event.preventDefault();
 		try {
 			await axios.put(`${BACKEND_API_URL}/transaction/${id}`, transaction);
-			navigate("/transaction");
+			navigate("/transactions");
 		} catch (error) {
 			console.log(error);
 		}
@@ -38,7 +38,7 @@ export const TransactionUpdate = () => {
             apiCallMethod={updateTransaction}
             transaction={transaction}
             setTransaction={setTransaction}
-            btnMsg="Update smartphone"
+            btnMsg="Update transaction"
         />
     )
 }

@@ -4,20 +4,22 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class CustomerTotalPriceDto {
+    private Long id;
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private LocalDate dateOfBirth;
-    private String email;
     private BigDecimal totalPrice;
 
-    public CustomerTotalPriceDto(String firstName, String lastName, String phoneNumber, LocalDate dateOfBirth, String email, BigDecimal totalPrice) {
+    public CustomerTotalPriceDto(Long id, String firstName, String lastName, String phoneNumber, BigDecimal totalPrice) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-        this.dateOfBirth = dateOfBirth;
-        this.email = email;
         this.totalPrice = totalPrice;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -32,16 +34,13 @@ public class CustomerTotalPriceDto {
         return phoneNumber;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public String getEmail() {
-        return email;
-    }
 
     public BigDecimal getTotalPrice() {
         return totalPrice;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setFirstName(String firstName) {
@@ -56,14 +55,6 @@ public class CustomerTotalPriceDto {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
@@ -74,8 +65,6 @@ public class CustomerTotalPriceDto {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", email='" + email + '\'' +
                 ", totalPrice=" + totalPrice +
                 '}';
     }

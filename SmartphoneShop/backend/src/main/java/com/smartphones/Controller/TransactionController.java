@@ -64,8 +64,8 @@ public class TransactionController{
     }
 
     @GetMapping("/getAllCustomersOrderedDescByTotalPriceOfBoughtSmartphones")
-    public ResponseEntity<Object> getAllCustomersOrderedDescByTotalPriceOfBoughtSmartphones(){
-        return new ResponseEntity<>(transactionService.getAllCustomersOrderedDescByTotalPriceOfBoughtSmartphones(), HttpStatus.OK);
+    public ResponseEntity<Object> getAllCustomersOrderedDescByTotalPriceOfBoughtSmartphones(@RequestParam Integer pageNumber){
+        return new ResponseEntity<>(transactionService.getAllCustomersOrderedDescByTotalPriceOfBoughtSmartphones(pageNumber), HttpStatus.OK);
     }
 
     @GetMapping("/getAllCustomersBornBeforeSpecificDateAndSortBoughtSmartphonesByStorageCapacity")
