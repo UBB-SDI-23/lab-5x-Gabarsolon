@@ -76,4 +76,9 @@ public class SmartphoneController {
                                                                               @RequestParam BigDecimal price){
         return new ResponseEntity<>(smartphoneService.getSmartphonesWithPriceHigherThanGivenValue(price, pageNumber), HttpStatus.OK);
     }
+
+    @GetMapping("/getSmartphoneCountWithDisplayId/{id}")
+    public ResponseEntity<Object> getNumberOfSmartphonesWithSpecificId(@PathVariable Integer id){
+        return new ResponseEntity<>(smartphoneService.getNumberOfSmartphonesHavingSpecificDisplayId(id), HttpStatus.OK);
+    }
 }

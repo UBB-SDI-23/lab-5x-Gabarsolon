@@ -9,4 +9,5 @@ export class Smartphone{
     launchDate: string = "";
     description: string = "";
     display: Display = new Display(); 
+    avgBoughtQuantity: number = 0;
 }

@@ -7,4 +7,5 @@ export class Transaction{
     smartphone: Smartphone = new Smartphone();
     quantity: number = 0;
     dateTime: string = "";
+    checkout: number = 0;
 }

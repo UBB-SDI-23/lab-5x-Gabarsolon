@@ -66,4 +66,8 @@ public class SmartphoneService extends EntityService<Smartphone>{
         return ((SmartphoneRepository)repository).findByPriceGreaterThan(price, PageRequest.of(pageNumber, 10));
     }
 
+    public Integer getNumberOfSmartphonesHavingSpecificDisplayId(Integer displayId){
+        return ((SmartphoneRepository)repository).countSmartphonesByDisplay_Id(displayId);
+    }
+
 }

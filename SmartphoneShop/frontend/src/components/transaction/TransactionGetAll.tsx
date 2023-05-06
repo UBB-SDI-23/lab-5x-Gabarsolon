@@ -95,6 +95,9 @@ function TransactionGetAll() {
                                 <TableCell>
                                     Date and Time
                                 </TableCell>
+                                <TableCell>
+                                    Checkout
+                                </TableCell>
                                 <TableCell>Operations</TableCell>
                             </TableRow>
                         </TableHead>
@@ -106,6 +109,7 @@ function TransactionGetAll() {
                                     <TableCell>{transaction.smartphone.brand} {transaction.smartphone.model}</TableCell>
                                     <TableCell>{transaction.quantity}</TableCell>
                                     <TableCell>{transaction.dateTime}</TableCell>
+                                    <TableCell>{transaction.checkout}</TableCell>
                                     <TableCell>
                                         <IconButton
                                             component={Link}

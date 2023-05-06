@@ -7,4 +7,5 @@ export class Display{
     resolutionWidth: number = 0;
     resolutionHeight: number = 0;
     protection: string = "";
+    smartphoneCount: number = 0;
 }

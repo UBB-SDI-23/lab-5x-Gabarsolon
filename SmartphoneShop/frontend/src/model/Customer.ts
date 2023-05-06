@@ -5,4 +5,5 @@ export class Customer{
     phoneNumber: string = "";
     dateOfBirth: string = "";
     email: string = "";
+    totalNumberOfBoughtSmartphones: number = 0;
 }

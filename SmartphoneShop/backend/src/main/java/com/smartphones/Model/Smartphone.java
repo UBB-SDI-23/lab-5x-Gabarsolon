@@ -1,13 +1,12 @@
 package com.smartphones.Model;
 
 
-import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.hibernate.annotations.Formula;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 //@JsonIdentityInfo(
@@ -34,8 +33,12 @@ public class Smartphone{
     @JoinColumn(name = "display_id")
 //    @NotNull(message = "You must specify a display id")
     private Display display;
-
     private String description;
+    @Formula("(SELECT sum(transaction.quantity)\n" +
+            "FROM transaction INNER JOIN smartphone ON transaction.smartphone_id = smartphone.id\n" +
+            "WHERE smartphone.id = id)")
+    private Integer totalNumberOfBoughtQuantity;
+
     protected Smartphone(){
 
     };
@@ -79,6 +82,10 @@ public class Smartphone{
 
     public String getDescription() {
         return description;
+    }
+
+    public Integer getTotalNumberOfBoughtQuantity() {
+        return totalNumberOfBoughtQuantity;
     }
 
     public void setId(Long id) {

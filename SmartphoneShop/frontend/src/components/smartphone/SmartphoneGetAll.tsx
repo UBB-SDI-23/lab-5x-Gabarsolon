@@ -164,6 +164,9 @@ function SmartphoneGetAll() {
                                 <TableCell>
                                     Display Type
                                 </TableCell>
+                                <TableCell>
+                                    Number of purchases
+                                </TableCell>
                                 <TableCell>Operations</TableCell>
                             </TableRow>
                         </TableHead>
@@ -178,6 +181,7 @@ function SmartphoneGetAll() {
                                     <TableCell>{smartphone.launchDate}</TableCell>
                                     <TableCell>{smartphone.description}</TableCell>
                                     <TableCell>{smartphone.display.type}</TableCell>
+                                    <TableCell>{smartphone.totalNumberOfBoughtQuantity}</TableCell>
                                     <TableCell>
                                         <IconButton
                                             component={Link}

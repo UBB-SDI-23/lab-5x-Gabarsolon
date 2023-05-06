@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
+import org.hibernate.annotations.Formula;
 
 import java.util.Set;
 
@@ -21,6 +22,9 @@ public class Display {
     private Integer resolutionWidth;
     @Positive(message = "The resolutionHeight must be positive")
     private Integer resolutionHeight;
+    @Formula("(SELECT COUNT(*) FROM smartphone WHERE smartphone.display_id = id)")
+    private Integer smartphoneCount;
+
     private String protection;
 //    @OneToMany(mappedBy = "display", orphanRemoval = true, fetch = FetchType.LAZY)
 //    private Set<Smartphone> smartphones;
@@ -62,6 +66,11 @@ public class Display {
 //    public Set<Smartphone> getSmartphones() {
 //        return smartphones;
 //    }
+
+
+    public Integer getSmartphoneCount() {
+        return smartphoneCount;
+    }
 
     public void setId(Long id) {
         this.id = id;

@@ -13,4 +13,5 @@ public interface SmartphoneRepository extends JpaRepository<Smartphone, Long> {
     List<Smartphone> findByBrandContainingIgnoreCaseAndModelContainingIgnoreCase(String brand, String model, Pageable pageable);
     List<Smartphone> findByBrandContainingIgnoreCaseAndModelContainingIgnoreCaseAndPrice(String brand, String model, BigDecimal price, Pageable pageable);
 
+    Integer countSmartphonesByDisplay_Id(Integer displayId);
 }

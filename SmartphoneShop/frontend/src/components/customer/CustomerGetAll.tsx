@@ -101,6 +101,9 @@ function CustomerGetAll() {
                                 <TableCell>
                                     Email
                                 </TableCell>
+                                <TableCell>
+                                    Number of purchased smartphones
+                                </TableCell>
                                 <TableCell>Operations</TableCell>
                             </TableRow>
                         </TableHead>
@@ -113,6 +116,7 @@ function CustomerGetAll() {
                                     <TableCell>{customer.phoneNumber}</TableCell>
                                     <TableCell>{customer.dateOfBirth}</TableCell>
                                     <TableCell>{customer.email}</TableCell>
+                                    <TableCell>{customer.totalNumberOfBoughtSmartphones}</TableCell>
                                     <TableCell>
                                         <IconButton
                                             component={Link}

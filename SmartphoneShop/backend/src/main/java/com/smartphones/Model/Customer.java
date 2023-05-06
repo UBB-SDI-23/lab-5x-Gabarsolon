@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.PastOrPresent;
+import org.hibernate.annotations.Formula;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -27,6 +28,12 @@ public class Customer {
     @Email(message = "The email is invalid")
     @Column(unique = true)
     private String email;
+
+    @Formula("(SELECT SUM(transaction.quantity) " +
+            "FROM transaction " +
+            "INNER JOIN customer ON transaction.customer_id = customer.id " +
+            "WHERE customer.id = id)")
+    private Integer totalNumberOfBoughtSmartphones;
     protected Customer() {
 
     }
@@ -62,6 +69,10 @@ public class Customer {
 
     public String getEmail() {
         return email;
+    }
+
+    public Integer getTotalNumberOfBoughtSmartphones() {
+        return totalNumberOfBoughtSmartphones;
     }
 
     public void setId(Long id) {

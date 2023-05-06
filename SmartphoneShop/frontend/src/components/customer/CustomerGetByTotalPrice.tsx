@@ -19,16 +19,19 @@ export const CustomerGetByTotalPrice = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const count=10;
 
-    useEffect(() => {
-        setLoading(true);
-        fetch(`${BACKEND_API_URL}/transaction/getAllCustomersOrderedDescByTotalPriceOfBoughtSmartphones?pageNumber=${currentPage}`)
-            .then(res => res.json())
-            .then(data => {
-                setCustomerDTOs(data);
-                setLoading(false);
-            })
-
-    }, [currentPage]);
+    useEffect(() => {const fetchData = async() => {
+		try{
+            setLoading(true);
+			const response = await axios.get<CustomerDTO[]>(
+				`${BACKEND_API_URL}/transaction/getAllCustomersOrderedDescByTotalPriceOfBoughtSmartphones?pageNumber=${currentPage}`
+			);
+			const data = await response.data;
+			setCustomerDTOs(data);
+            setLoading(false);
+		}catch(error){
+			console.error("Error fetching suggestions:", error);
+		}
+	}; fetchData()}, [currentPage]);
 
     return (
         <Container sx={{

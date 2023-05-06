@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
+import org.hibernate.annotations.Formula;
 
 import java.time.LocalDateTime;
 
@@ -25,6 +26,12 @@ public class Transaction {
     @PastOrPresent(message = "Invalid date")
     private LocalDateTime dateTime;
 
+
+    @Formula("(SELECT transaction.quantity*smartphone.price\n" +
+            "FROM transaction INNER JOIN smartphone ON transaction.smartphone_id = smartphone.id\n" +
+            "INNER JOIN customer ON transaction.customer_id = customer.id\n" +
+            "WHERE transaction.id = id)")
+    private Double checkout;
     protected Transaction(){
 
     }
@@ -54,6 +61,10 @@ public class Transaction {
 
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    public Double getCheckout() {
+        return checkout;
     }
 
     public void setId(Long id) {

@@ -16,7 +16,9 @@ def generate_displays():
 
     with open('displays.sql', 'w') as f:
         for i in range(1000):
-            f.writelines("INSERT INTO display(type, size, resolution_width, resolution_height, protection) VALUES ")
+            query = []
+            query.append("INSERT INTO display(type, size, resolution_width, resolution_height, protection) VALUES ")
+
             for j in range(999):
                 f.writelines("(" +
                              "'" + random.choice(type) + "'" "," +

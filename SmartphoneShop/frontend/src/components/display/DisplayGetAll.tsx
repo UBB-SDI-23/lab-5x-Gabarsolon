@@ -25,10 +25,11 @@ import DeleteForeverIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit"
 import {Link} from "react-router-dom";
 import {BACKEND_API_URL} from "../../constants";
+import axios from "axios";
 
 function DisplayGetAll() {
     const [displays,
-        setDisplays] = useState < Display[] > ([]);
+        setDisplays] = useState <Display[]>([]);
     const [loading,
         setLoading] = useState(false);
     const [currentPage,
@@ -36,7 +37,6 @@ function DisplayGetAll() {
     const [count,
         setCount] = useState(1);
     const [pageVal, setPageVal] = useState(1);
-
 
     useEffect(() => {
         setLoading(true);
@@ -46,10 +46,9 @@ function DisplayGetAll() {
         fetch(`${BACKEND_API_URL}/display/byPage/${currentPage - 1}`)
             .then(res => res.json())
             .then(data => {
-                setDisplays(data);
+                setDisplays(data)
                 setLoading(false);
-            })
-
+            });
     }, [currentPage]);
 
     return (
@@ -97,6 +96,9 @@ function DisplayGetAll() {
                                 <TableCell>
                                     Protection
                                 </TableCell>
+                                <TableCell>
+                                    Number of smartphones having this display
+                                </TableCell>
                                 <TableCell>Operations</TableCell>
                             </TableRow>
                         </TableHead>
@@ -109,6 +111,7 @@ function DisplayGetAll() {
                                     <TableCell>{display.resolutionWidth}</TableCell>
                                     <TableCell>{display.resolutionHeight}</TableCell>
                                     <TableCell>{display.protection}</TableCell>
+                                    <TableCell>{display.smartphoneCount}</TableCell>
                                     <TableCell>
                                         <IconButton
                                             component={Link}
