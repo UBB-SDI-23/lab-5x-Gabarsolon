@@ -7,12 +7,66 @@ import { Customer } from "../../model/Customer";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import axios from "axios";
 import {debounce} from "lodash";
+import { test } from "node:test";
 
 export const CustomerForm = (
     { apiCallMethod, customer, setCustomer, btnMsg} : 
     { apiCallMethod: any, customer: Customer, setCustomer: any, btnMsg: any}) =>{
 
+	const [errors, setErrors] = useState({
+		firstName: "",
+		lastName: "",
+		phoneNumber: "",
+		dateOfBirth: "",
+		email: "",
+	})
     
+	const validateForm = () => {
+		let valid = true;
+		
+		const phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+		const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+		const newErrors = {
+			firstName: "",
+			lastName: "",
+			phoneNumber: "",
+			dateOfBirth: "",
+			email: "",
+		}
+
+		if(customer.firstName===""){
+			newErrors.firstName="First name is required!";
+			valid=false;
+		}
+		if(customer.lastName===""){
+			newErrors.lastName="Last name is required";
+			valid=false;
+		}
+		if(!phonePattern.test(customer.phoneNumber)){
+			newErrors.phoneNumber="Phone number is not valid";
+			valid=false;
+		}
+		if(customer.dateOfBirth===""){
+			newErrors.dateOfBirth="Date of birth is required";
+			valid=false;
+		}
+		if(!emailPattern.test(customer.email)){
+			newErrors.email="Email is invalid!";
+			valid=false;
+		}
+
+		setErrors(newErrors);
+		return valid;
+	}
+
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		if(validateForm()){
+			apiCallMethod();
+		}
+	}
+
     return (
 		<Container>
 			<Card>
@@ -22,7 +76,7 @@ export const CustomerForm = (
 					</IconButton>
 					<IconButton component={Link} sx={{ mr: 3 }} to={`/customers`}>
 					</IconButton>{" "}
-					<form onSubmit={apiCallMethod}>
+					<form onSubmit={handleSubmit}>
 						<TextField
 							id="firstName"
 							label="First Name"
@@ -31,6 +85,8 @@ export const CustomerForm = (
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setCustomer({ ...customer, firstName: event.target.value })}
+							error={!!errors.firstName}
+							helperText={errors.firstName}
 						/>
 						<TextField
 							id="Last name"
@@ -40,6 +96,8 @@ export const CustomerForm = (
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setCustomer({ ...customer, lastName: event.target.value })}
+							error={!!errors.lastName}
+							helperText={errors.lastName}
 						/>
 						<TextField
 							id="phoneNumber"
@@ -49,15 +107,22 @@ export const CustomerForm = (
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setCustomer({ ...customer, phoneNumber: event.target.value })}
+							error={!!errors.phoneNumber}
+							helperText={errors.phoneNumber}
 						/>
+						<InputLabel sx={{ float:"left"}}>
+							Launch Date:
+						</InputLabel>
 						<TextField
 							id="dateOfBirth"
-							label="Date of Birth"
 							variant="outlined"
                             value={customer.dateOfBirth}
+							type="date"
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setCustomer({ ...customer, dateOfBirth: event.target.value })}
+							error={!!errors.dateOfBirth}
+							helperText={errors.dateOfBirth}
 						/>
 						<TextField
 							id="email"
@@ -67,6 +132,8 @@ export const CustomerForm = (
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setCustomer({ ...customer, email: event.target.value })}
+							error={!!errors.email}
+							helperText={errors.email}
 						/>
 						<Button type="submit" sx={{float: "left"}}>{btnMsg}</Button>
 					</form>

@@ -67,6 +67,56 @@ export const TransactionForm = (
 		}
 	};
 
+	const [errors, setErrors] = useState({
+		customer: "",
+		smartphone: "",
+		quantity: "",
+		dateTime: ""
+	});
+
+	const validateForm = () => {
+		let valid = true;
+
+		const newErrors = {
+			customer: "",
+			smartphone: "",
+			quantity: "",
+			dateTime: ""
+		}
+		if(transaction.customer.firstName===""){
+			newErrors.customer="Customer is required!";
+			valid = false;
+		}
+		if(transaction.smartphone.brand===""){
+			newErrors.smartphone="Smartphone is required!";
+			valid = false;
+		}
+		if(isNaN(transaction.quantity) || transaction.quantity <= 0){
+			newErrors.quantity="Quantity must be a positive number";
+			valid = false;
+		}
+		if(transaction.dateTime===""){
+			newErrors.dateTime="Date and time is required!";
+			valid = false;
+		}
+		
+		let launchDate = new Date(transaction.dateTime).getTime();
+		let currentDate = new Date().getTime();
+		if(launchDate > currentDate){
+			transaction.dateTime="Date must be in the past or present";
+		}
+
+		setErrors(newErrors);
+		return valid;
+	}
+	
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		if(validateForm()){
+			apiCallMethod();
+		}
+	}
+
     return (
 		<Container>
 			<Card>
@@ -76,13 +126,17 @@ export const TransactionForm = (
 					</IconButton>
 					<IconButton component={Link} sx={{ mr: 3 }} to={`/transactions`}>
 					</IconButton>{" "}
-					<form onSubmit={apiCallMethod}>
+					<form onSubmit={handleSubmit}>
                         <Autocomplete
                             id="customer"
                             options={customers}
                             value={transaction.customer}
                             getOptionLabel={(option) => `${option.firstName} ${option.lastName} ${option.email}`}
-                            renderInput={(params) => <TextField {...params} label="Customer" variant="outlined" />}
+                            renderInput={(params) => <TextField {...params} 
+							label="Customer" 
+							variant="outlined"
+							error={!!errors.customer}
+							helperText={errors.customer} />}
                             filterOptions={(x) => x}
                             sx={{mb: 2}}
                             onInputChange={handleInputChangeCustomers}
@@ -97,7 +151,11 @@ export const TransactionForm = (
 							options={smartphones}
 							value={transaction.smartphone}
 							getOptionLabel={(option) => `${option.brand} ${option.model} ${option.price} RON`}
-							renderInput={(params) => <TextField {...params} label="Smartphone" variant="outlined" />}
+							renderInput={(params) => <TextField {...params} 
+							label="Smartphone" 
+							variant="outlined" 
+							error={!!errors.smartphone}
+							helperText={errors.smartphone}/>}
 							filterOptions={(x) => x}
                             sx={{mb: 2}}
 							onInputChange={handleInputChangeSmartphones}
@@ -115,6 +173,8 @@ export const TransactionForm = (
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setTransaction({ ...transaction, quantity: Number(event.target.value)})}
+							error={!!errors.quantity}
+							helperText={errors.quantity}
 						/>
 						<InputLabel sx={{ float:"left"}}>
 							Launch Date:
@@ -127,6 +187,8 @@ export const TransactionForm = (
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setTransaction({ ...transaction, dateTime: event.target.value})}
+							error={!!errors.dateTime}
+							helperText={errors.dateTime}
 						/>
 						
 						<Button type="submit" sx={{float: "left"}}>{btnMsg}</Button>

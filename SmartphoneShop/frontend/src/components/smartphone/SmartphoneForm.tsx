@@ -14,7 +14,7 @@ export const SmartphoneForm = (
     { apiCallMethod: any, smartphone: Smartphone, setSmartphone: any, btnMsg: any}) =>{
 
 	const [displays, setDisplays] = useState<Display[]>([]);
-
+	
 	const fetchSuggestions = async(query: string) => {
 		try{
 			const response = await axios.get<Display[]>(
@@ -43,6 +43,73 @@ export const SmartphoneForm = (
 		}
 	};
 
+	
+    const [errors, setErrors] = useState({
+		brand: "",
+		model: "",
+		price: "",
+		storageCapacity: "",
+		launchDate: "",
+		display: ""
+    })
+
+	const validateForm  = () => {
+		let valid=true;
+		const newErrors={
+			brand: "",
+			model: "",
+			price: "",
+			storageCapacity: "",
+			launchDate: "",
+			display: ""
+		};
+
+		if(smartphone.brand===""){
+			newErrors.brand="Brand is required!";
+			valid = false;
+		}
+
+		if(smartphone.model===""){
+			newErrors.model="Model is required!";
+			valid = false;
+		}
+
+		if(isNaN(smartphone.price)){
+			newErrors.price="The price must be a number which is at least 0"
+			valid = false;
+		}
+		
+		if(isNaN(smartphone.storageCapacity)){
+			newErrors.storageCapacity="The storage capacity must be a positive number";
+			valid = false;
+		}
+
+		if(smartphone.launchDate===""){
+			newErrors.launchDate="Launch Date is required!";
+			valid = false;
+		}
+		let launchDate = new Date(smartphone.launchDate).getTime();
+		let currentDate = new Date().getTime();
+		if(launchDate > currentDate){
+			newErrors.launchDate="Date must be in the past or present";
+		}
+
+		if(smartphone.display.type==""){
+			newErrors.display="Display is required!";
+			valid = false;
+		}
+
+		setErrors(newErrors);
+		return valid;
+	}
+
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		if(validateForm()){
+			apiCallMethod();
+		}
+	}
+
     return (
 		<Container>
 			<Card>
@@ -52,7 +119,7 @@ export const SmartphoneForm = (
 					</IconButton>
 					<IconButton component={Link} sx={{ mr: 3 }} to={`/smartphones`}>
 					</IconButton>{" "}
-					<form onSubmit={apiCallMethod}>
+					<form onSubmit={handleSubmit}>
 						<TextField
 							id="brand"
 							label="Brand"
@@ -61,6 +128,8 @@ export const SmartphoneForm = (
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setSmartphone({ ...smartphone, brand: event.target.value })}
+							error={!!errors.brand}
+							helperText={errors.brand}
 						/>
 						<TextField
 							id="model"
@@ -70,6 +139,8 @@ export const SmartphoneForm = (
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setSmartphone({ ...smartphone, model: event.target.value })}
+							error={!!errors.model}
+							helperText={errors.model}
 						/>
 						<TextField
 							id="price"
@@ -79,6 +150,8 @@ export const SmartphoneForm = (
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setSmartphone({ ...smartphone, price: Number(event.target.value) })}
+							error={!!errors.price}
+							helperText={errors.price}
 						/>
 						<TextField
 							id="storageCapcity"
@@ -88,6 +161,8 @@ export const SmartphoneForm = (
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setSmartphone({ ...smartphone, storageCapacity: Number(event.target.value) })}
+							error={!!errors.storageCapacity}
+							helperText={errors.storageCapacity}
 						/>
 						<InputLabel sx={{ float:"left"}}>
 							Launch Date:
@@ -100,13 +175,19 @@ export const SmartphoneForm = (
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setSmartphone({ ...smartphone, launchDate: event.target.value})}
+							error={!!errors.launchDate}
+							helperText={errors.launchDate}
 						/>
 						<Autocomplete
 							id="display"
 							options={displays}
 							value={smartphone.display}
 							getOptionLabel={(option) => `${option.type} ${option.size} inch ${option.resolutionWidth}x${option.resolutionHeight}`}
-							renderInput={(params) => <TextField {...params} label="Main display(type size widthxheight)" variant="outlined" />}
+							renderInput={(params) => <TextField {...params} 
+							label="Main display(type size widthxheight)" 
+							variant="outlined"
+							error={!!errors.display}
+							helperText={errors.display} />}
 							filterOptions={(x) => x}
 							onInputChange={handleInputChange}
 							onChange={(event, value) => {

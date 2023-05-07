@@ -74,6 +74,37 @@ function DisplayGetAll() {
             )}
             {!loading && (
                 <TableContainer component={Paper} >
+                      <List
+                        sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        padding: "1px"
+                    }}>
+                        <ListItem>
+                            <Pagination
+                                onPageChange={(page : number) => setCurrentPage(page)}
+                                totalCount={count}
+                                currentPage={currentPage}
+                                pageSize={10}
+                                className="pagination-bar"/>
+                        </ListItem>
+                        <ListItem>
+                            <TextField
+                                id="page"
+                                label="Page:"
+                                type="number"
+                                sx={{
+                                mb: 2
+                            }}
+                                onChange={(event) => {
+                                    setPageVal(Number(event.target.value));
+                                }}
+                                onKeyDown={(event) => {
+                                if (event.key === "Enter") 
+                                    setCurrentPage(pageVal);
+                                }}></TextField>
+                        </ListItem>
+                    </List>
                     <Table>
                         <TableHead
                             sx={{

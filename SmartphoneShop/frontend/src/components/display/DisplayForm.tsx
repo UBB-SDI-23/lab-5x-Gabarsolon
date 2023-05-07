@@ -12,7 +12,54 @@ export const DisplayForm = (
     { apiCallMethod, display, setDisplay, btnMsg} : 
     { apiCallMethod: any, display: Display, setDisplay: any, btnMsg: any}) =>{
 
-    
+	const [errors, setErrors] = useState({
+		type: "",
+		size: "",
+		resolutionWidth:  "",
+		resolutionHeight:  "",
+		protection:  "",
+		smartphoneCount:  ""
+	})
+
+	const validateForm = () =>{
+		let valid = true;
+		const newErrors = {
+			type: "",
+			size: "",
+			resolutionWidth:  "",
+			resolutionHeight:  "",
+			protection:  "",
+			smartphoneCount:  ""
+		}
+
+		if(display.type===""){
+			newErrors.type="Type is required!";
+			valid = false;
+		}
+		if(isNaN(display.size) || display.size<=0){
+			newErrors.size="Size must be a positive number";
+			valid = false;
+		}
+		if(isNaN(display.resolutionHeight) || display.resolutionHeight<=0){
+			newErrors.resolutionHeight="Resolution height must be a positive number";
+			valid = false;
+		}
+		if(isNaN(display.resolutionWidth) || display.resolutionWidth<=0){
+			newErrors.resolutionWidth="Resolution width must be a positive number";
+			valid = false;
+		}
+
+		setErrors(newErrors);
+		return valid;
+	}
+
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) =>{
+		event.preventDefault();
+		if(validateForm()){
+			apiCallMethod();
+		}
+	}
+
     return (
 		<Container>
 			<Card>
@@ -22,7 +69,7 @@ export const DisplayForm = (
 					</IconButton>
 					<IconButton component={Link} sx={{ mr: 3 }} to={`/displays`}>
 					</IconButton>{" "}
-					<form onSubmit={apiCallMethod}>
+					<form onSubmit={handleSubmit}>
 						<TextField
 							id="type"
 							label="Type"
@@ -31,6 +78,8 @@ export const DisplayForm = (
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setDisplay({ ...display, type: event.target.value })}
+							error={!!errors.type}
+							helperText={errors.type}
 						/>
 						<TextField
 							id="size"
@@ -40,6 +89,8 @@ export const DisplayForm = (
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setDisplay({ ...display, size: Number(event.target.value) })}
+							error={!!errors.size}
+							helperText={errors.size}
 						/>
 						<TextField
 							id="resolutionWidth"
@@ -49,6 +100,8 @@ export const DisplayForm = (
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setDisplay({ ...display, resolutionWidth: Number(event.target.value) })}
+							error={!!errors.resolutionWidth}
+							helperText={errors.resolutionWidth}
 						/>
 						<TextField
 							id="resolutionHeight"
@@ -58,6 +111,8 @@ export const DisplayForm = (
 							fullWidth
 							sx={{ mb: 2 }}
 							onChange={(event) => setDisplay({ ...display, resolutionHeight: Number(event.target.value) })}
+							error={!!errors.resolutionHeight}
+							helperText={errors.resolutionHeight}
 						/>
 						<TextField
 							id="protection"
