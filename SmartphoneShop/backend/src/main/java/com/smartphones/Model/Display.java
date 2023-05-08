@@ -1,5 +1,6 @@
 package com.smartphones.Model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -22,12 +23,15 @@ public class Display {
     private Integer resolutionWidth;
     @Positive(message = "The resolutionHeight must be positive")
     private Integer resolutionHeight;
-    @Formula("(SELECT COUNT(*) FROM smartphone WHERE smartphone.display_id = id)")
-    private Integer smartphoneCount;
 
     private String protection;
-//    @OneToMany(mappedBy = "display", orphanRemoval = true, fetch = FetchType.LAZY)
-//    private Set<Smartphone> smartphones;
+    @OneToMany(mappedBy = "display", orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Smartphone> smartphones;
+    @JsonGetter
+    public Integer getSmartphoneCount() {
+        return smartphones.size();
+    }
+
     protected Display(){
 
     }
@@ -68,9 +72,6 @@ public class Display {
 //    }
 
 
-    public Integer getSmartphoneCount() {
-        return smartphoneCount;
-    }
 
     public void setId(Long id) {
         this.id = id;

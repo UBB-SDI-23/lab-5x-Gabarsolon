@@ -8,6 +8,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import axios from "axios";
 import {debounce} from "lodash";
 import { test } from "node:test";
+import { Transaction } from "../../model/Transaction";
 
 export const CustomerForm = (
     { apiCallMethod, customer, setCustomer, btnMsg} : 
@@ -55,6 +56,8 @@ export const CustomerForm = (
 			newErrors.email="Email is invalid!";
 			valid=false;
 		}
+
+	
 
 		setErrors(newErrors);
 		return valid;

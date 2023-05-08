@@ -1,11 +1,13 @@
 package com.smartphones.Model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import org.hibernate.annotations.Formula;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -27,11 +29,10 @@ public class Transaction {
     private LocalDateTime dateTime;
 
 
-    @Formula("(SELECT transaction.quantity*smartphone.price\n" +
-            "FROM transaction INNER JOIN smartphone ON transaction.smartphone_id = smartphone.id\n" +
-            "INNER JOIN customer ON transaction.customer_id = customer.id\n" +
-            "WHERE transaction.id = id)")
-    private Double checkout;
+    @JsonGetter
+    public Integer getCheckout(){
+        return smartphone.getPrice().multiply(new BigDecimal(quantity)).intValue();
+    }
     protected Transaction(){
 
     }
@@ -63,9 +64,6 @@ public class Transaction {
         return dateTime;
     }
 
-    public Double getCheckout() {
-        return checkout;
-    }
 
     public void setId(Long id) {
         this.id = id;

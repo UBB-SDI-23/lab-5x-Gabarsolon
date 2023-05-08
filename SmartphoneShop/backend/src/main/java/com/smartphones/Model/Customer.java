@@ -1,5 +1,6 @@
 package com.smartphones.Model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
@@ -28,6 +29,13 @@ public class Customer {
     @Email(message = "The email is invalid")
     @Column(unique = true)
     private String email;
+
+    @OneToMany(mappedBy = "customer", orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Transaction> transactions;
+    @JsonGetter
+    public Integer getTotalNumberOfBoughtSmartphones(){
+        return transactions.stream().map(t->t.getQuantity()).reduce(Integer::sum).get();
+    }
 
     @Formula("(SELECT SUM(transaction.quantity) " +
             "FROM transaction " +
@@ -69,10 +77,6 @@ public class Customer {
 
     public String getEmail() {
         return email;
-    }
-
-    public Integer getTotalNumberOfBoughtSmartphones() {
-        return totalNumberOfBoughtSmartphones;
     }
 
     public void setId(Long id) {

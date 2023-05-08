@@ -1,2 +1,2 @@
-/api/* http://ec2-13-53-171-224.eu-north-1.compute.amazonaws.com/api/:splat 200!
-/*    /index.html   200
+/api/* https://gabarsolonmpp.chickenkiller.com/api/:splat 200!
+/*    /index.html   200'
