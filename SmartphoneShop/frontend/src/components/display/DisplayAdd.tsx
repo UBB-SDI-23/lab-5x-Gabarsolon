@@ -9,13 +9,7 @@ import { DisplayForm } from "./DisplayForm";
 export const DisplayAdd = () => {
 	const navigate = useNavigate();
 
-	const [display, setDisplay] = useState<Display>({
-		type: "",
-		size: 0,
-		resolutionWidth: 0,
-		resolutionHeight: 0,
-		protection: ""
-	});
+	const [display, setDisplay] = useState<Display>(new Display());
 
 	
 

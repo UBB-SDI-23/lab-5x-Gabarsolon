@@ -18,15 +18,7 @@ export const SmartphoneUpdate = () => {
             })
     }, []);;
 
-    const [smartphone, setSmartphone] = useState<Smartphone>({
-		brand: "",
-		model: "",
-		price: 0,
-		storageCapacity: 0,
-		launchDate: "",
-        description: "",
-		display: new Display()
-	});
+    const [smartphone, setSmartphone] = useState<Smartphone>(new Smartphone());
 
 	const updateSmartphone = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();

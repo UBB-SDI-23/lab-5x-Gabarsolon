@@ -17,13 +17,7 @@ export const CustomerUpdate = () => {
             })
     }, []);;
 
-    const [customer, setCustomer] = useState<Customer>({
-            firstName: "",
-            lastName: "",
-            phoneNumber: "",
-            dateOfBirth: "",
-            email: ""
-    });
+    const [customer, setCustomer] = useState<Customer>(new Customer());
 
 	const updateCustomer = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();

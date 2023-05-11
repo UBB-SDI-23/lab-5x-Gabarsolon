@@ -17,13 +17,7 @@ export const DisplayUpdate = () => {
             })
     }, []);;
 
-    const [display, setDisplay] = useState<Display>({
-		type: "",
-		size: 0,
-		resolutionWidth: 0,
-		resolutionHeight: 0,
-		protection: ""
-	});
+    const [display, setDisplay] = useState<Display>(new Display());
 
 	const updateSmartphone = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();
