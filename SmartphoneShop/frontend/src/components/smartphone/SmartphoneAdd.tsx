@@ -9,15 +9,7 @@ import { SmartphoneForm } from "./SmartphoneForm";
 export const SmartphoneAdd = () => {
 	const navigate = useNavigate();
 
-	const [smartphone, setSmartphone] = useState<Smartphone>({
-		brand: "",
-		model: "",
-		price: 0,
-		storageCapacity: 0,
-		launchDate: "",
-		description: "",
-		display: new Display()
-	});
+	const [smartphone, setSmartphone] = useState<Smartphone>(new Smartphone());
 
 	
 

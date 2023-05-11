@@ -74,7 +74,7 @@ function SmartphoneGetAll() {
 
     useEffect(() => {
         setLoading(true);
-        
+        console.log(`${BACKEND_API_URL}/smartphone/count`);
         if (price == -1) {
             fetch(`${BACKEND_API_URL}/smartphone/count`)
                 .then(res => res.json())
