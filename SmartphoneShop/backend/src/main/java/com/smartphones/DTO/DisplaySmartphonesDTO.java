@@ -1,4 +1,4 @@
-package com.smartphones.Model;
+package com.smartphones.DTO;
 
 import java.util.Set;
 

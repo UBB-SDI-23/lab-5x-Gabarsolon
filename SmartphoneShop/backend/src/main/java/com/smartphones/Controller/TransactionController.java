@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/transaction")
+@RequestMapping("/transaction")
 public class TransactionController{
     @Autowired
     private TransactionService transactionService;

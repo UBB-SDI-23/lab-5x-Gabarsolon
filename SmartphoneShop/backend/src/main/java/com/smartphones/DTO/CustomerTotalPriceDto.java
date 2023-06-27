@@ -1,4 +1,4 @@
-package com.smartphones.Model;
+package com.smartphones.DTO;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

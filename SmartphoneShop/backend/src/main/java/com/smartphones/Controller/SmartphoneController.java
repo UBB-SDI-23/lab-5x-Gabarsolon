@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/api/smartphone")
+@RequestMapping("/smartphone")
 public class SmartphoneController {
     @Autowired
     private SmartphoneService smartphoneService;

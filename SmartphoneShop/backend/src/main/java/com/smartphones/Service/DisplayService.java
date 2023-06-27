@@ -1,7 +1,7 @@
 package com.smartphones.Service;
 
 import com.smartphones.Model.Display;
-import com.smartphones.Model.DisplaySmartphonesDTO;
+import com.smartphones.DTO.DisplaySmartphonesDTO;
 import com.smartphones.Repository.DisplayRepository;
 import com.smartphones.Repository.SmartphoneRepository;
 import jakarta.transaction.Transactional;

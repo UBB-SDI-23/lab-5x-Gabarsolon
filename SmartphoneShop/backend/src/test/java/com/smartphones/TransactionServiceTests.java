@@ -1,5 +1,6 @@
 package com.smartphones;
 
+import com.smartphones.DTO.CustomerTotalPriceDto;
 import com.smartphones.Model.*;
 import com.smartphones.Repository.TransactionRepository;
 import com.smartphones.Service.TransactionService;

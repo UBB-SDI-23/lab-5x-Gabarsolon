@@ -1,6 +1,7 @@
 package com.smartphones;
 
 import com.smartphones.Controller.TransactionController;
+import com.smartphones.DTO.CustomerTotalPriceDto;
 import com.smartphones.Model.*;
 import com.smartphones.Service.TransactionService;
 import org.junit.jupiter.api.BeforeAll;

@@ -1,7 +1,7 @@
 package com.smartphones.Controller;
 
 import com.smartphones.Model.Display;
-import com.smartphones.Model.DisplaySmartphonesDTO;
+import com.smartphones.DTO.DisplaySmartphonesDTO;
 import com.smartphones.Service.DisplayService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/api/display")
+@RequestMapping("/display")
 public class DisplayController {
     @Autowired
     private DisplayService displayService;

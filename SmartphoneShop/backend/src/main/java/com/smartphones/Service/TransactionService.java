@@ -1,12 +1,14 @@
 package com.smartphones.Service;
 //1079
+import com.smartphones.DTO.CustomerTotalPriceDto;
+import com.smartphones.DTO.SmartphoneDTO;
+import com.smartphones.DTO.TransactionDTO;
 import com.smartphones.Model.*;
 import com.smartphones.Repository.TransactionRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
